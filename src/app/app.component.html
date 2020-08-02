@@ -1,12 +1,4 @@
-<nb-layout>
-
-  <nb-layout-header fixed>
-  <!-- Insert header here -->
-  </nb-layout-header>
-
-  <nb-layout-column>
-
-    <!-- <mat-card>
+<!-- <mat-card>
         <div class="example-container">
             <mat-form-field>
                 <input matInput placeholder="First name" [(ngModel)]="firstName" />
@@ -53,20 +45,12 @@
         </table>
     </mat-card> -->
 
-    <mat-toolbar>
-        <span>Arquivos Meta</span>
-    </mat-toolbar>
+<mat-toolbar>
+    <span>Arquivos Meta</span>
+</mat-toolbar>
 
-    <app-table-view [data]="treeNodes"></app-table-view>
+<app-table-view></app-table-view>
 
-    <pre>{{ count | json }}</pre>
-    <br /><br />
-    <pre>{{ files | json }}</pre>
-
-  </nb-layout-column>
-
-  <nb-layout-footer fixed>
-  <!-- Insert footer here -->
-  </nb-layout-footer>
-
-</nb-layout>
+<pre>{{ count | json }}</pre>
+<br /><br />
+<pre>{{ files | json }}</pre>

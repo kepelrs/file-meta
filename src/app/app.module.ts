@@ -12,9 +12,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 
 import { AppComponent, JsonPipe } from "./app.component";
 import { TableViewComponent } from "./components/table-view/table-view.component";
-import { NbCardModule, NbTreeGridModule, NbThemeModule, NbLayoutModule } from "@nebular/theme";
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
     declarations: [AppComponent, JsonPipe, TableViewComponent],
@@ -29,13 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
         MatGridListModule,
         MatButtonModule,
         MatToolbarModule,
-        NbCardModule,
-        NbTreeGridModule,
-        NbThemeModule.forRoot({ name: 'default' }),
-        NbLayoutModule,
-        NbEvaIconsModule,
         AppRoutingModule,
-
     ],
     providers: [],
     bootstrap: [AppComponent],
