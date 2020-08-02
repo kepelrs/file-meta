@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
-interface TreeNode<T> {
+export interface TreeNode<T> {
     data: T;
     children?: TreeNode<T>[];
     expanded?: boolean;
 }
 
-interface FSEntry {
+export interface FSEntry {
     name: string;
     size: string;
     kind: string;
@@ -23,7 +23,7 @@ export class TableViewComponent {
     defaultColumns = ["size", "kind", "items"];
     allColumns = [this.customColumn, ...this.defaultColumns];
 
-    data: TreeNode<FSEntry>[] = [
+    @Input() data: TreeNode<FSEntry>[] = [
         {
             data: { name: "Projects", size: "1.8 MB", items: 5, kind: "dir" },
             children: [
