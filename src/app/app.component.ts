@@ -4,6 +4,11 @@ import { FileMeta } from './data-access/entities/file-meta.entity';
 import { promises as fs, Stats } from 'fs';
 import * as md5File from 'md5-file';
 import * as walkdir from 'walkdir';
+import { TreeNode } from 'primeng/components/common/treenode';
+import {
+  GTreeNode,
+  FsStats,
+} from './components/table-view/table-view.component';
 
 interface ExtendedStats extends Stats {
   $isDirectory: boolean;
@@ -29,7 +34,7 @@ export class JsonPipe implements PipeTransform {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  treeNodes = [];
+  treeNodes: GTreeNode<FsStats>[] = [];
 
   files: ExtendedWalk = {};
   count = { a: 0 };
@@ -74,10 +79,10 @@ export class AppComponent implements OnInit {
   }
 
   filesToTreeNodes() {
-    const treeNodes = [];
+    const treeNodes: GTreeNode<FsStats>[] = [];
     for (const key of Object.keys(this.files)) {
       const stat = this.files[key];
-      const node = {
+      const node: GTreeNode<FsStats> = {
         data: {
           name: key.split('/').slice(-1).join(''),
           size: String(stat.size),
