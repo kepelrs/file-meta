@@ -9,6 +9,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
 import { NgModule } from "@angular/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { TreeTableModule } from "primeng/treetable";
 
 import { AppComponent, JsonPipe } from "./app.component";
 import { TableViewComponent } from "./components/table-view/table-view.component";
@@ -28,6 +29,7 @@ import { AppRoutingModule } from "./app-routing.module";
         MatButtonModule,
         MatToolbarModule,
         AppRoutingModule,
+        TreeTableModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

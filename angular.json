@@ -31,7 +31,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/@nebular/theme/styles/prebuilt/default.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng-lts/resources/themes/nova-light/theme.css",
+              "node_modules/primeng-lts/resources/primeng.min.css"
             ],
             "scripts": []
           },
@@ -95,7 +97,9 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "src/styles.scss",
-              "node_modules/@nebular/theme/styles/prebuilt/default.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng-lts/resources/themes/nova-light/theme.css",
+              "node_modules/primeng-lts/resources/primeng.min.css"
             ],
             "scripts": [],
             "assets": [
