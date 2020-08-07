@@ -11,12 +11,13 @@ import { NgModule } from "@angular/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { TreeTableModule } from "primeng/treetable";
 
-import { AppComponent, JsonPipe } from "./app.component";
+import { AppComponent } from "./app.component";
 import { TableViewComponent } from "./components/table-view/table-view.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { PrettyJsonPipe } from './core/pipes/pretty-json.pipe';
 
 @NgModule({
-    declarations: [AppComponent, JsonPipe, TableViewComponent],
+    declarations: [AppComponent, PrettyJsonPipe, TableViewComponent, PrettyJsonPipe],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
