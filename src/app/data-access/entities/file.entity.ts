@@ -21,7 +21,7 @@ export class File extends BaseEntity {
   @Column()
   size: string;
 
-  @Column()
+  @Column({ nullable: true })
   md5: string;
 
   @ManyToOne((type) => Metadata, (metadata) => metadata.files)

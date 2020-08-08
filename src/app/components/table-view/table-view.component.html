@@ -49,7 +49,11 @@
         {{ rowData[col.field] }}
       </td>
       <td class="meda-dados">
-
+        <p-button
+          icon="pi pi-check"
+          label="Criar"
+          (click)="createMeta(rowData)"
+        ></p-button>
       </td>
     </tr>
   </ng-template>

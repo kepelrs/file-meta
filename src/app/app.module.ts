@@ -18,6 +18,7 @@ import { PrettyJsonPipe } from './core/pipes/pretty-json.pipe';
 import { FileSystemQuery } from './core/state/file-system.query';
 import { FileSystemStore } from './core/state/file-system.store';
 import { FileSystemService } from './core/state/file-system.service';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FileSystemService } from './core/state/file-system.service';
     MatToolbarModule,
     AppRoutingModule,
     TreeTableModule,
+    ButtonModule,
   ],
   providers: [FileSystemQuery, FileSystemStore, FileSystemService],
   bootstrap: [AppComponent],
