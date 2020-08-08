@@ -1,6 +1,6 @@
 <p-treeTable
   #tt
-  [value]="treeNodes"
+  [value]="fileSystemQuery.fsNodes$ | async"
   [columns]="cols"
   [paginator]="true"
   [rows]="10"
@@ -53,3 +53,6 @@
     </tr>
   </ng-template>
 </p-treeTable>
+
+<pre>{{ fileSystemQuery.currentFolder$ | async | json }}</pre>
+<pre>{{ fileSystemQuery.fsNodes$ | async | json }}</pre>
