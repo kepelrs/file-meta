@@ -1,6 +1,6 @@
 import { Component, Pipe, PipeTransform, OnInit } from '@angular/core';
 import { DatabaseService } from './data-access/database.service';
-import { FileMeta } from './data-access/entities/file-meta.entity';
+import { File } from './data-access/entities/file.entity';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { FileMeta } from './data-access/entities/file-meta.entity';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  fileMetas: FileMeta[] = [];
+  fileMetas: File[] = [];
 
   constructor(private databaseService: DatabaseService) {}
 
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   getFileMetas() {
     this.databaseService.connection
-      .then(() => FileMeta.find())
+      .then(() => File.find())
       .then((fileMetas) => {
         this.fileMetas = fileMetas;
       });
