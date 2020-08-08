@@ -1,15 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
-import { FileSystemStore, FsNode, FsStats } from './file-system.store';
-import * as walkdir from 'walkdir';
 import { FileSystemQuery } from './file-system.query';
-import { Stats } from 'fs';
-import * as path from 'path';
-
-export interface ExtendedWalk {
-  [path: string]: FsStats;
-}
+import * as dree from 'dree';
+import { FileSystemStore, FsNode } from './file-system.store';
 
 @Injectable({ providedIn: 'root' })
 export class FileSystemService {
@@ -20,34 +12,39 @@ export class FileSystemService {
     this.loadInitialStore();
   }
 
-  private extendWalk(walk: { [path: string]: Stats }): FsNode[] {
-    const tree = ({ ...walk } as unknown) as ExtendedWalk;
-    const nodes: FsNode[] = [];
-    for (const key of Object.keys(tree)) {
-      const data = tree[key];
-      data.name = path.basename(key);
-      data.path = key;
-      data.$isDirectory = data.isDirectory();
-      data.$isSymbolicLink = data.isSymbolicLink();
-      data.type = data.$isDirectory ? 'Pasta' : 'Arquivo';
-      nodes.push({ data, children: [] });
+  private dreeWalkToFsNode(dreeWalk: dree.Dree): FsNode {
+    // Retrieve the property names defined on object
+    const { children: dreeChildren, ...data } = dreeWalk;
+
+    let children: FsNode[];
+    if (dreeChildren) {
+      children = dreeChildren.map((dc) => this.dreeWalkToFsNode(dc));
+      children.sort((c1, c2) =>
+        // sort first by type, then by name
+        c1.data.type !== c2.data.type
+          ? c1.data.type > c2.data.type
+            ? 1
+            : -1
+          : c1.data.name > c2.data.name
+          ? 1
+          : -1
+      );
     }
-    return nodes;
+
+    return { data, children };
   }
 
   private async loadInitialStore() {
-    const walk = await walkdir.async('.', {
-      // TODO get dynamic path selected by user
-      return_object: true,
-      no_recurse: true,
-    });
+    console.time('loadDree');
+    const dreeWalk = dree.scan('.', { hash: false });
 
-    const rootNodes = this.extendWalk(walk);
     this.fileSystemStore.update((state) => ({
       ...state,
-      loadedTree: rootNodes,
+      loadedTree: this.dreeWalkToFsNode(dreeWalk).children,
     }));
+    console.timeEnd('loadDree');
   }
+
   // lazyLoadTree() {
 
   //   this.fileSystemStore.

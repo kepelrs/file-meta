@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TreeNode } from 'primeng/components/common/treenode';
 import { FileSystemQuery } from '../../core/state/file-system.query';
-import { GTreeNode, FsStats, FsNode } from '../../core/state/file-system.store';
+import { FsNode } from '../../core/state/file-system.store';
 import { FileSystemService } from '../../core/state/file-system.service';
 
 @Component({
@@ -23,9 +22,9 @@ export class TableViewComponent {
     this.treeNodes = [];
 
     this.cols = [
-      { field: 'name', header: 'Name' },
-      { field: 'size', header: 'Size' },
-      { field: 'type', header: 'Type' },
+      { field: 'name', header: 'Nome' },
+      { field: 'size', header: 'Tamanho' },
+      { field: 'type', header: 'Tipo' },
     ];
   }
 }

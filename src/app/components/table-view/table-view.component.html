@@ -2,7 +2,7 @@
   #tt
   [value]="fileSystemQuery.fsNodes$ | async"
   [columns]="cols"
-  [paginator]="true"
+  [paginator]="false"
   [rows]="10"
 >
   <ng-template pTemplate="caption">
@@ -23,8 +23,9 @@
       <th *ngFor="let col of cols">
         {{ col.header }}
       </th>
+      <th>Meta-dados</th>
     </tr>
-    <tr>
+    <!-- <tr>
       <th *ngFor="let col of cols">
         <input
           pInputText
@@ -34,7 +35,8 @@
           "
         />
       </th>
-    </tr>
+      <th></th>
+    </tr> -->
   </ng-template>
   <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
     <tr>
@@ -43,7 +45,11 @@
           [rowNode]="rowNode"
           *ngIf="i == 0"
         ></p-treeTableToggler>
+        <!-- TODO: Translate type field -->
         {{ rowData[col.field] }}
+      </td>
+      <td class="meda-dados">
+
       </td>
     </tr>
   </ng-template>
@@ -54,5 +60,5 @@
   </ng-template>
 </p-treeTable>
 
-<pre>{{ fileSystemQuery.currentFolder$ | async | json }}</pre>
-<pre>{{ fileSystemQuery.fsNodes$ | async | json }}</pre>
+<!-- <pre>{{ fileSystemQuery.currentFolder$ | async | json }}</pre> -->
+<!-- <pre>{{ fileSystemQuery.fsNodes$ | async | json }}</pre> -->

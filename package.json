@@ -48,7 +48,6 @@
     "typeorm": "^0.2.18"
   },
   "devDependencies": {
-    "@datorama/akita": "^5.2.2",
     "@angular-builders/custom-webpack": "^8.0.2",
     "@angular-devkit/architect": "^0.800.3",
     "@angular-devkit/build-angular": "^0.800.3",
@@ -67,6 +66,7 @@
     "@angular/platform-browser": "^8.0.1",
     "@angular/platform-browser-dynamic": "^8.0.1",
     "@angular/router": "^8.0.1",
+    "@datorama/akita": "^5.2.2",
     "@datorama/akita-ngdevtools": "^5.0.1",
     "@nebular/eva-icons": "^4.6.0",
     "@nebular/theme": "^4.6.0",
@@ -78,6 +78,7 @@
     "commonjs": "0.0.1",
     "copy-webpack-plugin": "^5.0.3",
     "core-js": "^3.1.4",
+    "dree": "^2.4.14",
     "electron": "^5.0.4",
     "electron-builder": "^20.44.2",
     "electron-reload": "^1.4.0",
