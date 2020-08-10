@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FileSystemQuery } from '../../core/state/file-system.query';
 import { FsNode } from '../../core/state/file-system.store';
 import { FileSystemService } from '../../core/state/file-system.service';
-import { DatabaseService } from '../../data-access/database.service';
-import { File } from '../../data-access/entities/file.entity';
+import { DatabaseService } from '../../core/db/database.service';
+import { File } from '../../core/db/entities/file.entity';
 import { Dree } from 'dree';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, Pipe, PipeTransform, OnInit } from '@angular/core';
-import { DatabaseService } from './data-access/database.service';
-import { File } from './data-access/entities/file.entity';
+import { DatabaseService } from './core/db/database.service';
+import { File } from './core/db/entities/file.entity';
 
 @Component({
   selector: 'app-root',

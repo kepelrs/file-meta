@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { remote } from 'electron';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 export class Settings {
 
