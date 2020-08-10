@@ -18,7 +18,7 @@ export class DatabaseService {
       database: Settings.dbPath,
       entities: [File, Metadata],
       synchronize: true,
-      logging: 'all',
+      // logging: 'all',
     };
     this.connection = createConnection(this.options);
   }

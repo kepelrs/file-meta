@@ -23,7 +23,7 @@
       <th *ngFor="let col of cols">
         {{ col.header }}
       </th>
-      <th>Meta-dados</th>
+      <th class="meta-dados">Meta-dados</th>
     </tr>
     <!-- <tr>
       <th *ngFor="let col of cols">
@@ -48,10 +48,13 @@
         <!-- TODO: Translate type field -->
         {{ rowData[col.field] }}
       </td>
-      <td class="meda-dados">
+      <td class="meta-dados">
         <p-button
-          icon="pi pi-check"
-          label="Criar"
+          *ngIf="rowData?.type === 'file'"
+          styleClass="rounded ui-button-raised ui-button-{{
+            rowData?.metadata ? 'success' : 'secondary'
+          }}"
+          icon="pi pi-search"
           (click)="createMeta(rowData)"
         ></p-button>
       </td>
@@ -59,7 +62,7 @@
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td [attr.colspan]="cols.length">No data found.</td>
+      <td [attr.colspan]="cols.length + 1">No data found.</td>
     </tr>
   </ng-template>
 </p-treeTable>

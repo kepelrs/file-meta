@@ -21,6 +21,9 @@ export class File extends BaseEntity {
   @Column()
   size: string;
 
+  @Column()
+  sizeInBytes: number;
+
   @Column({ nullable: true })
   md5: string;
 

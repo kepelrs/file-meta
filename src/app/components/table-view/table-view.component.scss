@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  td {
+    &.meta-dados {
+      text-align: center;
+    }
+  }
+
+  th {
+    &.meta-dados {
+      width: 113px;
+    }
+  }
+
+  .rounded {
+    border-radius: 50%;
+  }
+}

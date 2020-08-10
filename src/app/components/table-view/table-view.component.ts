@@ -37,6 +37,11 @@ export class TableViewComponent {
 
     const connection = await this.databaseService.connection;
     const repo = connection.getRepository(File);
-    repo.save({ name: rowData.name, size: rowData.size, path: rowData.path });
+    repo.save({
+      name: rowData.name,
+      size: rowData.size,
+      sizeInBytes: rowData.sizeInBytes,
+      path: rowData.path,
+    });
   }
 }
