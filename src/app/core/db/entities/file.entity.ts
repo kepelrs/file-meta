@@ -4,10 +4,13 @@ import {
   Column,
   BaseEntity,
   ManyToOne,
+  Index,
+  Unique,
 } from 'typeorm';
 import { Metadata } from './metadata.entity';
 
 @Entity()
+@Unique('pathsizemd5', ['path', 'sizeInBytes', 'metadataMd5'])
 export class File extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,8 +28,7 @@ export class File extends BaseEntity {
   sizeInBytes: number;
 
   @Column({ nullable: true })
-  md5: string;
-
+  metadataMd5?: string; // this is fk -> Metadata
   @ManyToOne((type) => Metadata, (metadata) => metadata.files)
   metadata: Metadata;
 }
