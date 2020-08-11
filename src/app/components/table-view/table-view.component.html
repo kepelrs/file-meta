@@ -4,6 +4,7 @@
   [columns]="cols"
   [paginator]="false"
   [rows]="10"
+  (onNodeExpand)="onNodeExpand($event)"
 >
   <ng-template pTemplate="caption">
     <div style="text-align: right;">
@@ -50,11 +51,16 @@
       </td>
       <td class="meta-dados">
         <p-button
-          *ngIf="rowData?.type === 'file'"
-          styleClass="rounded ui-button-raised ui-button-{{
-            rowData?.metadata ? 'success' : 'secondary'
-          }}"
+          *ngIf="rowData?.nodeMetadata"
+          styleClass="rounded ui-button-raised ui-button-secondary"
           icon="pi pi-search"
+          (click)="con(rowData)"
+        ></p-button>
+
+        <p-button
+          *ngIf="rowData?.type === 'file'"
+          styleClass="rounded ui-button-raised ui-button-success"
+          icon="pi pi-plus"
           (click)="createMeta(rowData)"
         ></p-button>
       </td>

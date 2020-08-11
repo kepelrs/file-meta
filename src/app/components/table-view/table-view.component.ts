@@ -44,4 +44,10 @@ export class TableViewComponent {
       path: rowData.path,
     });
   }
+
+  onNodeExpand(event: { originalEvent: Event; node: FsNode }) {
+    for (const child of event.node.children || []) {
+      this.fileSystemService.loadNodeMetadata(child);
+    }
+  }
 }

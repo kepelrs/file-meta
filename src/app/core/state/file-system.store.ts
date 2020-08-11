@@ -3,9 +3,10 @@ import { Store, StoreConfig } from '@datorama/akita';
 import * as path from 'path';
 import { TreeNode } from 'primeng/components/common/treenode';
 import { Dree } from 'dree';
+import { Metadata } from '../db/entities/metadata.entity';
 
 /** Dree related types */
-export type FsNode = GTreeNode<Dree>;
+export type FsNode = GTreeNode<Dree & { nodeMetadata?: Metadata }>;
 export interface GTreeNode<T = any> extends TreeNode {
   data: T;
   children?: GTreeNode<T>[];
