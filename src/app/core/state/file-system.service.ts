@@ -48,7 +48,7 @@ export class FileSystemService {
 
   private async loadInitialStore() {
     console.time('loadDree');
-    const dreeWalk = dree.scan('.', { hash: true, depth: 2 });
+    const dreeWalk = await dree.scanAsync('.', { hash: true, depth: 2 });
 
     const rootNodesAndChildren = this.dreeWalkToFsNode(dreeWalk).children;
     console.log(rootNodesAndChildren);
