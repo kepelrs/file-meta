@@ -4,14 +4,18 @@ import * as dree from 'dree';
 import { FileSystemStore } from './file-system.store';
 import { DatabaseService } from '../db/database.service';
 import { HashService } from '../services/hash.service';
+import { DreeWithMetadata } from '../types';
+import { Repository } from 'typeorm';
+import { Metadata } from '../db/entities/metadata.entity';
 
 @Injectable({ providedIn: 'root' })
 export class FileSystemService {
   constructor(
     private fileSystemStore: FileSystemStore,
-    private hashService: HashService
+    private hashService: HashService,
+    private dbService: DatabaseService
   ) {
-    this.navigateToFolder(this.fileSystemStore.getValue().folderPath);
+    this.navigate();
   }
 
   private async getDreeWithHash(folder: string) {
@@ -27,8 +31,24 @@ export class FileSystemService {
     return dreeScan;
   }
 
-  public async navigateToFolder(folder: string) {
+  public async addMetadata(node: DreeWithMetadata, metadataContent: string) {
+    const metadataRepo = (await this.dbService.connection).getRepository(
+      Metadata
+    );
+    await metadataRepo.save({
+      hash: node.hash,
+      content: metadataContent,
+      sizeInBytes: node.sizeInBytes,
+    });
+
+    await this.navigate();
+  }
+
+  public async navigate(
+    folder: string = this.fileSystemStore.getValue().folderPath
+  ) {
     const dreeScan = await this.getDreeWithHash(folder);
+
     this.fileSystemStore.update((state) => ({
       folderPath: folder,
       dree: dreeScan,

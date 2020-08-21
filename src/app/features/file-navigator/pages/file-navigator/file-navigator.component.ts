@@ -4,6 +4,8 @@ import { FileSystemService } from '../../../../core/state/file-system.service';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Dree } from 'dree';
+import { DreeWithMetadata } from '../../../../core/types';
+import { DatabaseService } from '../../../../core/db/database.service';
 
 export interface Tile {
   color: string;
@@ -29,6 +31,7 @@ export class FileNavigatorComponent implements OnInit {
   dreeChildren$: Observable<any>;
 
   constructor(
+    private dbService: DatabaseService,
     public fileSystemQuery: FileSystemQuery,
     public fileSystemService: FileSystemService
   ) {}
@@ -55,7 +58,11 @@ export class FileNavigatorComponent implements OnInit {
     );
   }
 
-  public navigateTo(child: Dree) {
-    this.fileSystemService.navigateToFolder(child.path);
+  public addMetadata(child: DreeWithMetadata) {
+    this.fileSystemService.addMetadata(child, 'metadataContent');
+  }
+
+  public navigateTo(child: DreeWithMetadata) {
+    this.fileSystemService.navigate(child.path);
   }
 }

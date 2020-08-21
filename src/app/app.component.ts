@@ -1,6 +1,5 @@
 import { Component, Pipe, PipeTransform, OnInit } from '@angular/core';
 import { DatabaseService } from './core/db/database.service';
-import { File } from './core/db/entities/file.entity';
 
 @Component({
   selector: 'app-root',
@@ -8,19 +7,7 @@ import { File } from './core/db/entities/file.entity';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  fileMetas: File[] = [];
+  constructor() {}
 
-  constructor(private databaseService: DatabaseService) {}
-
-  async ngOnInit() {
-    this.getFileMetas();
-  }
-
-  getFileMetas() {
-    this.databaseService.connection
-      .then(() => File.find())
-      .then((fileMetas) => {
-        this.fileMetas = fileMetas;
-      });
-  }
+  async ngOnInit() {}
 }

@@ -5,12 +5,19 @@
     [class.file]="child.type === 'file'"
     (click)="navigateTo(child)"
   >
-    <div>
+    <div style="width: 100%;">
       <p>
         {{ child.type }}
       </p>
       <p>{{ child.name }}</p>
       <p>{{ child.hash }}</p>
+      <button
+        *ngIf="child.type === 'file' && !child.metadata"
+        (click)="addMetadata(child)"
+      >
+        Add metadata
+      </button>
+      <button *ngIf="child.metadata">Edit metadata</button>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

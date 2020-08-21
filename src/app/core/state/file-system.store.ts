@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 import * as path from 'path';
 import { Dree } from 'dree';
+import { Metadata } from '../db/entities/metadata.entity';
+import { DreeWithMetadata } from '../types';
 
 export interface FileSystemState {
   folderPath: string;
-  dree: Dree;
+  dree: DreeWithMetadata;
 }
 
 export function createInitialState(): FileSystemState {

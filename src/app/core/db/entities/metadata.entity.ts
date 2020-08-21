@@ -5,17 +5,21 @@ import {
   BaseEntity,
   PrimaryColumn,
   OneToMany,
+  Index,
 } from 'typeorm';
-import { File } from './file.entity';
 
 @Entity()
+@Index(['hash', 'sizeInBytes'], { unique: true })
 export class Metadata extends BaseEntity {
   @PrimaryColumn()
-  md5: string;
+  id: number;
+
+  @Column()
+  hash: string;
+
+  @Column()
+  sizeInBytes: number;
 
   @Column({ type: 'text' })
   content: string;
-
-  @OneToMany((type) => File, (file) => file.metadata)
-  files: File[];
 }
