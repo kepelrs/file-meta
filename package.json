@@ -78,7 +78,7 @@
     "commonjs": "0.0.1",
     "copy-webpack-plugin": "^5.0.3",
     "core-js": "^3.1.4",
-    "dree": "^2.4.14",
+    "dree": "kepelrs/dree#sampling-hash",
     "electron": "^5.0.4",
     "electron-builder": "^20.44.2",
     "electron-reload": "^1.4.0",

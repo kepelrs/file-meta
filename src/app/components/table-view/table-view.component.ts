@@ -46,8 +46,7 @@ export class TableViewComponent {
   }
 
   onNodeExpand(event: { originalEvent: Event; node: FsNode }) {
-    for (const child of event.node.children || []) {
-      this.fileSystemService.loadNodeMetadata(child);
-    }
+    const children = (event && event.node && event.node.children) || [];
+    this.fileSystemService.loadNodeMetadata(children);
   }
 }

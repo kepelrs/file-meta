@@ -48,9 +48,10 @@ export class FileSystemService {
 
   private async loadInitialStore() {
     console.time('loadDree');
-    const dreeWalk = dree.scan('.', { hash: false });
+    const dreeWalk = dree.scan('.', { hash: true, depth: 2 });
 
     const rootNodesAndChildren = this.dreeWalkToFsNode(dreeWalk).children;
+    console.log(rootNodesAndChildren);
 
     this.fileSystemStore.update((state) => ({
       ...state,
@@ -63,39 +64,33 @@ export class FileSystemService {
   }
 
   async loadNodeMetadata(node: FsNode | FsNode[]) {
-    if (!Array.isArray(node)) {
-      node = [node];
-    }
-
-    const connection = await this.databaseService.connection;
-
-    const pathAndSizes: { path: string; sizeInBytes: number }[] = [];
-    console.time('regular');
-    for (const n of node) {
-      const pathAndSize = {
-        path: n.data.path || '',
-        sizeInBytes: n.data.sizeInBytes,
-      };
-      pathAndSizes.push(pathAndSize);
-
-      const fileWithMetadata = await connection.getRepository(File).findOne({
-        where: pathAndSize,
-        relations: ['metadata'],
-      });
-
-      if (fileWithMetadata) {
-        console.log(fileWithMetadata);
-      }
-      this.nodeMap[n.data.path].data.nodeMetadata =
-        fileWithMetadata && fileWithMetadata.metadata;
-    }
-    console.timeEnd('regular');
-
-    const fileWithMetadata2 = await connection
-      .getCustomRepository(CustomFsRepo)
-      .filesHaveMetadata(pathAndSizes);
-
-    console.log(this);
-    this.fileSystemStore.update((state) => ({ ...state }));
+    // if (!Array.isArray(node)) {
+    //   node = [node];
+    // }
+    // const connection = await this.databaseService.connection;
+    // const pathAndSizes: { path: string; sizeInBytes: number }[] = [];
+    // console.time('regular');
+    // for (const n of node) {
+    //   const pathAndSize = {
+    //     path: n.data.path || '',
+    //     sizeInBytes: n.data.sizeInBytes,
+    //   };
+    //   pathAndSizes.push(pathAndSize);
+    //   const fileWithMetadata = await connection.getRepository(File).findOne({
+    //     where: pathAndSize,
+    //     relations: ['metadata'],
+    //   });
+    //   if (fileWithMetadata) {
+    //     console.log(fileWithMetadata);
+    //   }
+    //   this.nodeMap[n.data.path].data.nodeMetadata =
+    //     fileWithMetadata && fileWithMetadata.metadata;
+    // }
+    // console.timeEnd('regular');
+    // const fileWithMetadata2 = await connection
+    //   .getCustomRepository(CustomFsRepo)
+    //   .filesHaveMetadata(pathAndSizes);
+    // console.log(this);
+    // this.fileSystemStore.update((state) => ({ ...state }));
   }
 }
