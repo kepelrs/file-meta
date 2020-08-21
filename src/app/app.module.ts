@@ -12,24 +12,21 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { TreeTableModule } from 'primeng/treetable';
 
 import { AppComponent } from './app.component';
-import { TableViewComponent } from './components/table-view/table-view.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PrettyJsonPipe } from './core/pipes/pretty-json.pipe';
 import { FileSystemQuery } from './core/state/file-system.query';
 import { FileSystemStore } from './core/state/file-system.store';
 import { FileSystemService } from './core/state/file-system.service';
 import { ButtonModule } from 'primeng/button';
+import { FileNavigatorModule } from './features/file-navigator/file-navigator.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PrettyJsonPipe,
-    TableViewComponent,
-    PrettyJsonPipe,
-  ],
+  declarations: [AppComponent, PrettyJsonPipe, PrettyJsonPipe],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CoreModule,
     FormsModule,
     MatTableModule,
     MatCardModule,
@@ -38,6 +35,7 @@ import { ButtonModule } from 'primeng/button';
     MatGridListModule,
     MatButtonModule,
     MatToolbarModule,
+    FileNavigatorModule,
     AppRoutingModule,
     TreeTableModule,
     ButtonModule,

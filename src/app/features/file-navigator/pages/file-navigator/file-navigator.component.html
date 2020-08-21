@@ -1,0 +1,19 @@
+<mat-grid-list cols="4" gutterSize="1em">
+  <mat-grid-tile
+    *ngFor="let child of dreeChildren$ | async"
+    [class.directory]="child.type === 'directory'"
+    [class.file]="child.type === 'file'"
+    (click)="navigateTo(child)"
+  >
+    <div>
+      <p>
+        {{ child.type }}
+      </p>
+      <p>{{ child.name }}</p>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+<pre>
+
+  {{ fileSystemQuery.dree$ | async | json }}
+</pre>

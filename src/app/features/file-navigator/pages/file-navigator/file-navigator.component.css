@@ -1,0 +1,8 @@
+.directory {
+  cursor: pointer;
+  background-color: lightblue;
+}
+.file {
+  cursor: pointer;
+  background-color: lightgreen;
+}

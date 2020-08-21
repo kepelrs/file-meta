@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
+import { FileNavigatorComponent } from './features/file-navigator/pages/file-navigator/file-navigator.component';
 
-const routes: Routes = [];
+const routes: Routes = [{ path: '', component: FileNavigatorComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
