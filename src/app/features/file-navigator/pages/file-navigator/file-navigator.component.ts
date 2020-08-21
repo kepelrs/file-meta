@@ -58,7 +58,15 @@ export class FileNavigatorComponent implements OnInit {
     );
   }
 
-  public addMetadata(child: DreeWithMetadata) {
+  public addMetadata(event: Event, child: DreeWithMetadata) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.fileSystemService.addMetadata(child, 'metadataContent');
+  }
+
+  public editMetadata(event: Event, child: DreeWithMetadata) {
+    event.preventDefault();
+    event.stopPropagation();
     this.fileSystemService.addMetadata(child, 'metadataContent');
   }
 
