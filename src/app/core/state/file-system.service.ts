@@ -9,10 +9,12 @@ import { Repository } from 'typeorm';
 import { Metadata } from '../db/entities/metadata.entity';
 import { Dree } from 'dree';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
+import { File } from '../db/entities/file.entity';
 
 @Injectable({ providedIn: 'root' })
 export class FileSystemService {
   private metadataRepo: Promise<Repository<Metadata>>;
+  private fileRepo: Promise<Repository<File>>;
   private localStorageKey = 'lastLocation';
 
   constructor(
@@ -21,9 +23,12 @@ export class FileSystemService {
     private dbService: DatabaseService,
     private routerQuery: RouterQuery
   ) {
-    // setup repo
+    // setup repos
     this.metadataRepo = this.dbService.connection.then((c) =>
       c.getRepository(Metadata)
+    );
+    this.fileRepo = this.dbService.connection.then((c) =>
+      c.getRepository(File)
     );
 
     // load last visited location
@@ -40,10 +45,15 @@ export class FileSystemService {
       );
   }
 
+  /**
+   * WARNING: Has side effects.
+   * TODO: Refactor functionality for proper semantics
+   */
   private async getDreeWithHashAndMeta(
     folderPath: string
   ): Promise<DreeWithMetadata> {
     const metadataRepo = await this.metadataRepo;
+    const fileRepo = await this.fileRepo;
 
     const dreeScan = dree.scan(folderPath, { hash: false, depth: 1 });
     const children: DreeWithMetadata[] = dreeScan.children || [];
@@ -54,6 +64,14 @@ export class FileSystemService {
         child.metadata = await metadataRepo.findOne({
           hash: child.hash,
         });
+
+        // Store file reference for future searches
+        if (child.metadata) {
+          await fileRepo.save({
+            path: child.path,
+            metadata: child.metadata,
+          });
+        }
       }
     }
 

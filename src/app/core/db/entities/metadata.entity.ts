@@ -7,6 +7,7 @@ import {
   OneToMany,
   Index,
 } from 'typeorm';
+import { File } from './file.entity';
 
 @Entity()
 export class Metadata extends BaseEntity {
@@ -18,4 +19,7 @@ export class Metadata extends BaseEntity {
 
   @Column({ type: 'text' })
   plainText: string;
+
+  @OneToMany((type) => File, (file) => file.metadata)
+  files: File[];
 }
