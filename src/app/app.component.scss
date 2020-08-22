@@ -1,13 +1,37 @@
-@import 'scss/index';
-table {
-    width: 100%;
+$colors: (
+  color1: #ffffff,
+  color2: #000000,
+  color3: #38627b,
+  color4: #132e45,
+  color5: #132838,
+  color6: #198e7f,
+  color7: #162e41,
+);
+
+@function get-color($key) {
+  @return map-get($colors, $key);
 }
 
-.example-container {
-    display: flex;
-    flex-direction: column;
+$weights: (
+  extra-bold: 900,
+  bold: 700,
+  semi-bold: 600,
+  medium: 500,
+  normal: 400,
+  light: 300,
+);
+
+@mixin font($size, $color) {
+  font-family: $primary-font, $secondary-font;
+  font-weight: $normal;
+  font-size: $size;
+  color: $color;
 }
 
-.example-container > * {
-    width: 100%;
+@function get-weight($key) {
+  @return map-get($weights, $key);
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

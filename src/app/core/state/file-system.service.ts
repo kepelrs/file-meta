@@ -31,18 +31,18 @@ export class FileSystemService {
       c.getRepository(File)
     );
 
-    // load last visited location
-    const lastLocation =
-      window.localStorage.getItem(this.localStorageKey) || '.';
-
     // Watch route changes
     this.routerQuery
       .selectParams('encFolderPath')
-      .subscribe((encFolderPath: string) =>
+      .subscribe((encFolderPath: string) => {
+        // load last visited location
+        const lastLocation =
+          window.localStorage.getItem(this.localStorageKey) || '.';
+
         this.scanFs(
           encFolderPath ? decodeURIComponent(encFolderPath) : lastLocation
-        )
-      );
+        );
+      });
   }
 
   /**

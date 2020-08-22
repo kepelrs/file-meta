@@ -61,6 +61,14 @@ export class FileNavigatorComponent implements OnInit {
     );
   }
 
+  public goBack() {
+    window.history.back();
+  }
+
+  public reload() {
+    window.location.reload();
+  }
+
   public navigateTo(child: DreeWithMetadata) {
     this.router.navigate([encodeURIComponent(child.path)]);
   }

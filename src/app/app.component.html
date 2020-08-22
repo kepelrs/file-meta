@@ -1,9 +1,8 @@
-<mat-toolbar>
-  <span>Arquivos Meta</span>
-</mat-toolbar>
-<mat-toolbar>
-  <button (click)="goBack()">Voltar</button>
-  <button (click)="reload()">Atualizar</button>
-</mat-toolbar>
+<mat-toolbar class="mat-elevation-z3">
+  {{ pageTitle }}
+  <span class="spacer"></span>
 
+  <button mat-button (click)="toFileNavigator()">Navegador</button>
+  <button mat-button (click)="toSearch()">Pesquisa</button>
+</mat-toolbar>
 <router-outlet></router-outlet>

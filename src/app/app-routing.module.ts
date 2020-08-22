@@ -6,7 +6,7 @@ import { SearchResultsComponent } from './features/search/pages/search-results/s
 
 const routes: Routes = [
   { path: '', component: FileNavigatorComponent },
-  { path: 'search/:encKeyword', component: SearchResultsComponent },
+  { path: 'search', component: SearchResultsComponent },
   { path: ':encFolderPath', component: FileNavigatorComponent },
 ];
 

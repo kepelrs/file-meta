@@ -1,5 +1,8 @@
 import { Component, Pipe, PipeTransform, OnInit } from '@angular/core';
 import { DatabaseService } from './core/db/database.service';
+import { Router } from '@angular/router';
+import { FileSystemService } from './core/state/file-system.service';
+import { FileSystemQuery } from './core/state/file-system.query';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +10,28 @@ import { DatabaseService } from './core/db/database.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private router: Router,
+    private fileSystemQuery: FileSystemQuery
+  ) {}
 
   async ngOnInit() {}
 
-  goBack() {
-    window.history.back();
+  get pageTitle() {
+    if (this.router.url.startsWith('/search')) {
+      return 'Pesquisa';
+    }
+    return 'Navegador';
   }
 
-  reload() {
-    window.location.reload();
+  toFileNavigator() {
+    console.log(this.router.url);
+    this.router.navigateByUrl(
+      `/${encodeURIComponent(this.fileSystemQuery.getValue().folderPath)}`
+    );
+  }
+
+  toSearch() {
+    this.router.navigateByUrl(`/search`);
   }
 }
