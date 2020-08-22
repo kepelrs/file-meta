@@ -10,4 +10,12 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   async ngOnInit() {}
+
+  goBack() {
+    window.history.back();
+  }
+
+  reload() {
+    window.location.reload();
+  }
 }

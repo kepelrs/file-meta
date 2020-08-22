@@ -8,48 +8,62 @@ import { DreeWithMetadata } from '../types';
 import { Repository } from 'typeorm';
 import { Metadata } from '../db/entities/metadata.entity';
 import { Dree } from 'dree';
+import { RouterQuery } from '@datorama/akita-ng-router-store';
 
 @Injectable({ providedIn: 'root' })
 export class FileSystemService {
   private metadataRepo: Promise<Repository<Metadata>>;
+
   constructor(
     private fileSystemStore: FileSystemStore,
     private hashService: HashService,
-    private dbService: DatabaseService
+    private dbService: DatabaseService,
+    private routerQuery: RouterQuery
   ) {
     this.metadataRepo = this.dbService.connection.then((c) =>
       c.getRepository(Metadata)
     );
 
-    this.navigate();
+    this.routerQuery
+      .selectParams('encFolderPath')
+      .subscribe((encFolderPath: string) =>
+        this.scanFs(encFolderPath ? decodeURIComponent(encFolderPath) : '.')
+      );
   }
 
   private async getDreeWithHashAndMeta(
-    folder: string
+    folderPath: string
   ): Promise<DreeWithMetadata> {
     const metadataRepo = await this.metadataRepo;
 
-    const dreeScan = dree.scan(folder, { hash: false, depth: 1 });
+    const dreeScan = dree.scan(folderPath, { hash: false, depth: 1 });
     const children: DreeWithMetadata[] = dreeScan.children || [];
     for (let i = 0; i < children.length; i++) {
       const child = children[i];
       if (child.type === 'file') {
         child.hash = await this.hashService.hashFile(child.path);
-        child.metadata = await this.loadMetadata(child, metadataRepo);
+        child.metadata = await metadataRepo.findOne({
+          hash: child.hash,
+          sizeInBytes: child.sizeInBytes,
+        });
       }
     }
 
     return dreeScan;
   }
 
-  private async loadMetadata(
-    node: Dree,
-    metadataRepo: Repository<Metadata>
-  ): Promise<Metadata> {
-    return metadataRepo.findOne({
-      hash: node.hash,
-      sizeInBytes: node.sizeInBytes,
-    });
+  private async reScanFs() {
+    const currentFolderPath = this.fileSystemStore.getValue().folderPath;
+    await this.scanFs(currentFolderPath);
+  }
+
+  private async scanFs(folderPath: string) {
+    const dreeScan = await this.getDreeWithHashAndMeta(folderPath);
+
+    this.fileSystemStore.update((state) => ({
+      folderPath: folderPath,
+      dree: dreeScan,
+    }));
   }
 
   public async addMetadata(node: DreeWithMetadata, metadataContent: string) {
@@ -60,17 +74,6 @@ export class FileSystemService {
       sizeInBytes: node.sizeInBytes,
     });
 
-    await this.navigate();
-  }
-
-  public async navigate(
-    folder: string = this.fileSystemStore.getValue().folderPath
-  ) {
-    const dreeScan = await this.getDreeWithHashAndMeta(folder);
-
-    this.fileSystemStore.update((state) => ({
-      folderPath: folder,
-      dree: dreeScan,
-    }));
+    await this.reScanFs();
   }
 }

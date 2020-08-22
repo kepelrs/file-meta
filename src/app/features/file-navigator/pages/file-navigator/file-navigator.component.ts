@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { Dree } from 'dree';
 import { DreeWithMetadata } from '../../../../core/types';
 import { DatabaseService } from '../../../../core/db/database.service';
+import { Router } from '@angular/router';
 
 export interface Tile {
   color: string;
@@ -31,9 +32,9 @@ export class FileNavigatorComponent implements OnInit {
   dreeChildren$: Observable<any>;
 
   constructor(
-    private dbService: DatabaseService,
-    public fileSystemQuery: FileSystemQuery,
-    public fileSystemService: FileSystemService
+    private router: Router,
+    private fileSystemService: FileSystemService,
+    public fileSystemQuery: FileSystemQuery
   ) {}
 
   ngOnInit() {
@@ -71,6 +72,6 @@ export class FileNavigatorComponent implements OnInit {
   }
 
   public navigateTo(child: DreeWithMetadata) {
-    this.fileSystemService.navigate(child.path);
+    this.router.navigate([encodeURIComponent(child.path)]);
   }
 }

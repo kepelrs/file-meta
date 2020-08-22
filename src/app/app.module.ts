@@ -20,10 +20,12 @@ import { FileSystemService } from './core/state/file-system.service';
 import { ButtonModule } from 'primeng/button';
 import { FileNavigatorModule } from './features/file-navigator/file-navigator.module';
 import { CoreModule } from './core/core.module';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 
 @NgModule({
   declarations: [AppComponent, PrettyJsonPipe, PrettyJsonPipe],
   imports: [
+    AkitaNgRouterStoreModule,
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
