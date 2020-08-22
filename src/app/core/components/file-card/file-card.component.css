@@ -1,0 +1,57 @@
+mat-card {
+  overflow: hidden;
+  height: 100%;
+  cursor: pointer;
+}
+
+.no-meta {
+  font-style: italic;
+  opacity: 0.5;
+}
+
+.file-icon {
+  width: 100%;
+  height: 50%;
+}
+
+.file-name {
+  opacity: 0.6;
+  text-align: center;
+  margin-bottom: 0;
+  width: 100%;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* TODO add hover when ellipsis */
+}
+
+.name-and-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.ear {
+  top: 0;
+  right: 0;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  transform: rotate(225deg) translate(0px, 90px);
+  font-size: 0.5em;
+
+  background-color: lightgray;
+}
+
+.ear.has-metadata {
+  background-color: lightgreen;
+}
+
+.ear mat-icon {
+  color: #444;
+  padding-top: 0.05em;
+  font-size: 2.5em;
+}

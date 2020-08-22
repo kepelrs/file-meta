@@ -13,7 +13,6 @@ import { TreeTableModule } from 'primeng/treetable';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PrettyJsonPipe } from './core/pipes/pretty-json.pipe';
 import { FileSystemQuery } from './core/state/file-system.query';
 import { FileSystemStore } from './core/state/file-system.store';
 import { FileSystemService } from './core/state/file-system.service';
@@ -24,7 +23,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { SearchModule } from './features/search/search.module';
 
 @NgModule({
-  declarations: [AppComponent, PrettyJsonPipe, PrettyJsonPipe],
+  declarations: [AppComponent],
   imports: [
     AkitaNgRouterStoreModule,
     BrowserModule,

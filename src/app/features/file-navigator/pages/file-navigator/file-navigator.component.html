@@ -1,12 +1,10 @@
-<mat-grid-list cols="4" gutterSize="1em">
+<mat-grid-list cols="4">
   <mat-grid-tile
     *ngFor="let child of dreeChildren$ | async"
-    [class.directory]="child.type === 'directory'"
-    [class.file]="child.type === 'file'"
     (click)="navigateTo(child)"
   >
-    <div style="width: 100%;">
-      <p>
+    <div class="grid-tile-wrap">
+      <!-- <p>
         {{ child.type }}
       </p>
       <p>{{ child.name }}</p>
@@ -19,7 +17,8 @@
       </button>
       <button *ngIf="child.metadata" (click)="editMetadata($event, child)">
         Edit metadata
-      </button>
+      </button> -->
+      <app-file-card [dreeNode]="child"></app-file-card>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

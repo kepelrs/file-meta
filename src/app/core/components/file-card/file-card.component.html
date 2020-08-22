@@ -1,0 +1,17 @@
+<mat-card class="mat-elevation-z1">
+  <div
+    *ngIf="dreeNode.type === 'file'"
+    class="ear"
+    [class.has-metadata]="dreeNode.metadata?.content"
+    (click)="manageMetadata($event)"
+  >
+    <mat-icon aria-hidden="false" aria-label="star icon">star</mat-icon>
+  </div>
+
+  <div class="name-and-icon">
+    <span class="fiv-cla file-icon {{ dreeNode | dreeToFileIcon }}"></span>
+    <h3 class="file-name">
+      {{ dreeNode.name }}
+    </h3>
+  </div>
+</mat-card>
