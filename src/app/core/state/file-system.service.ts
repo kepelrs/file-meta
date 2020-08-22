@@ -13,6 +13,7 @@ import { RouterQuery } from '@datorama/akita-ng-router-store';
 @Injectable({ providedIn: 'root' })
 export class FileSystemService {
   private metadataRepo: Promise<Repository<Metadata>>;
+  private localStorageKey = 'lastLocation';
 
   constructor(
     private fileSystemStore: FileSystemStore,
@@ -20,14 +21,22 @@ export class FileSystemService {
     private dbService: DatabaseService,
     private routerQuery: RouterQuery
   ) {
+    // setup repo
     this.metadataRepo = this.dbService.connection.then((c) =>
       c.getRepository(Metadata)
     );
 
+    // load last visited location
+    const lastLocation =
+      window.localStorage.getItem(this.localStorageKey) || '.';
+
+    // Watch route changes
     this.routerQuery
       .selectParams('encFolderPath')
       .subscribe((encFolderPath: string) =>
-        this.scanFs(encFolderPath ? decodeURIComponent(encFolderPath) : '.')
+        this.scanFs(
+          encFolderPath ? decodeURIComponent(encFolderPath) : lastLocation
+        )
       );
   }
 
@@ -64,6 +73,7 @@ export class FileSystemService {
       folderPath: folderPath,
       dree: dreeScan,
     }));
+    window.localStorage.setItem(this.localStorageKey, folderPath);
   }
 
   public async addMetadata(node: DreeWithMetadata, metadataContent: string) {
