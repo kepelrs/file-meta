@@ -9,17 +9,13 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Index(['hash', 'sizeInBytes'], { unique: true })
 export class Metadata extends BaseEntity {
   @PrimaryColumn()
-  id: number;
-
-  @Column()
   hash: string;
-
-  @Column()
-  sizeInBytes: number;
 
   @Column({ type: 'text' })
   content: string;
+
+  @Column({ type: 'text' })
+  plainText: string;
 }

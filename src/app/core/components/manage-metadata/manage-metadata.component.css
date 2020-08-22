@@ -1,0 +1,19 @@
+app-file-card {
+  height: 95%;
+  width: 95%;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1em;
+}
+
+.actions button {
+  margin-left: 1em;
+  font-weight: 600;
+}
+
+.actions .save-button {
+  background-color: #09b527;
+}

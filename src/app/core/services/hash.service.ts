@@ -7,10 +7,10 @@ const fsPromise = fs.promises;
 export class HashService {
   constructor() {}
 
-  private hashPortion = async (
+  private async hashPortion(
     path,
     { start, end } = { start: 0, end: Infinity }
-  ): Promise<string> => {
+  ): Promise<string> {
     return new Promise((resolve, reject) => {
       const output = crypto.createHash('md5');
       const input = fs.createReadStream(path, { start, end });
@@ -25,16 +25,20 @@ export class HashService {
 
       input.pipe(output);
     });
-  };
+  }
 
+  /** Includes fileSize in the hash: helps reduce potential collisions in larger sampled files */
   public async hashFile(path, threshold = 128 * 1024) {
+    const output = crypto.createHash('md5');
     // get file size
     const stat = fsPromise.stat(path);
     const size = (await stat).size;
 
     // if smaller than threshold, hash the entire file
     if (size < threshold) {
-      return this.hashPortion(path);
+      const fileHash = this.hashPortion(path);
+      output.update(fileHash + String(size));
+      return output.digest('hex');
     }
 
     // else sample start, middle and file end
@@ -56,8 +60,7 @@ export class HashService {
     });
 
     // return hash of all samplings
-    const output = crypto.createHash('md5');
-    output.update(startHash + middleHash + endHash);
+    output.update(startHash + middleHash + endHash + String(size));
     return output.digest('hex');
   }
 }

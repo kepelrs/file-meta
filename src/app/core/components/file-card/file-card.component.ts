@@ -1,21 +1,39 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DreeWithMetadata } from '../../types';
+import { DialogService } from 'primeng/api';
+import { ManageMetadataComponent } from '../manage-metadata/manage-metadata.component';
 
 @Component({
   selector: 'app-file-card',
   templateUrl: './file-card.component.html',
   styleUrls: ['./file-card.component.css'],
+  providers: [DialogService],
 })
 export class FileCardComponent implements OnInit {
   @Input() dreeNode: DreeWithMetadata;
+  @Input() mode: 'allow-metadata' | 'details-view';
 
-  constructor() {}
+  constructor(private dialogService: DialogService) {}
 
   ngOnInit() {}
 
   manageMetadata(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
-    alert('TODO: Implement');
+
+    if (this.dreeNode.metadata) {
+      this.openDialog();
+    } else {
+      this.openDialog();
+    }
+  }
+
+  openDialog() {
+    const ref = this.dialogService.open(ManageMetadataComponent, {
+      header: 'Metadados do arquivo',
+      width: '85%',
+      data: this.dreeNode,
+      closable: false,
+    });
   }
 }

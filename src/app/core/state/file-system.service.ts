@@ -53,7 +53,6 @@ export class FileSystemService {
         child.hash = await this.hashService.hashFile(child.path);
         child.metadata = await metadataRepo.findOne({
           hash: child.hash,
-          sizeInBytes: child.sizeInBytes,
         });
       }
     }
@@ -76,12 +75,16 @@ export class FileSystemService {
     window.localStorage.setItem(this.localStorageKey, folderPath);
   }
 
-  public async addMetadata(node: DreeWithMetadata, metadataContent: string) {
+  public async addMetadata(
+    node: DreeWithMetadata,
+    metadataContent: string,
+    plainText: string
+  ) {
     const metadataRepo = await this.metadataRepo;
     await metadataRepo.save({
       hash: node.hash,
       content: metadataContent,
-      sizeInBytes: node.sizeInBytes,
+      plainText,
     });
 
     await this.reScanFs();

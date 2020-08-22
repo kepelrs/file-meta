@@ -27,13 +27,15 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
               "node_modules/file-icon-vectors/dist/file-icon-classic.min.css",
               "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/quill/dist/quill.js"]
           },
           "configurations": {
             "dev": {
@@ -94,13 +96,15 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
               "node_modules/file-icon-vectors/dist/file-icon-classic.min.css",
               "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/quill/dist/quill.js"],
             "assets": ["src/favicon.ico", "src/assets"]
           }
         },

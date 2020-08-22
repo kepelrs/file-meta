@@ -21,6 +21,7 @@ import { FileNavigatorModule } from './features/file-navigator/file-navigator.mo
 import { CoreModule } from './core/core.module';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { SearchModule } from './features/search/search.module';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,7 @@ import { SearchModule } from './features/search/search.module';
     AppRoutingModule,
     TreeTableModule,
     ButtonModule,
+    DynamicDialogModule,
   ],
   providers: [FileSystemQuery, FileSystemStore, FileSystemService],
   bootstrap: [AppComponent],

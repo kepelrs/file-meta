@@ -4,7 +4,10 @@
     (click)="child.type === 'directory' && navigateTo(child)"
   >
     <div class="grid-tile-wrap">
-      <app-file-card [dreeNode]="child"></app-file-card>
+      <app-file-card
+        [dreeNode]="child"
+        [mode]="'allow-metadata'"
+      ></app-file-card>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

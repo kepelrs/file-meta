@@ -1,6 +1,6 @@
 <mat-card class="mat-elevation-z1">
   <div
-    *ngIf="dreeNode.type === 'file'"
+    *ngIf="dreeNode.type === 'file' && mode === 'allow-metadata'"
     class="ear"
     [class.has-metadata]="dreeNode.metadata?.content"
     (click)="manageMetadata($event)"
