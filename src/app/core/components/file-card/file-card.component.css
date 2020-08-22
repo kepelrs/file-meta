@@ -34,7 +34,7 @@ mat-card {
 }
 
 .ear {
-  transition: 0.025s linear;
+  transition: 0.02s cubic-bezier(0.4, 0, 0.2, 1);
   top: 0;
   right: 0;
   position: absolute;
@@ -50,7 +50,9 @@ mat-card {
 
 .ear:hover {
   opacity: 1;
-  transform: rotate(225deg) translate(0, 9em) scale(1);
+  transform: rotate(225deg) translate(0, 9em) scale(0.9);
+  box-shadow: -3px -6px 4px -1px rgba(0, 0, 0, 0.2),
+    0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .ear.has-metadata {
@@ -61,4 +63,9 @@ mat-card {
   color: #444;
   padding-top: 0.25em;
   font-size: 3em;
+}
+
+.mat-elevation-z1:hover {
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }

@@ -7,6 +7,7 @@ import { Dree } from 'dree';
 import { DreeWithMetadata } from '../../../../core/types';
 import { DatabaseService } from '../../../../core/db/database.service';
 import { Router } from '@angular/router';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 export interface Tile {
   color: string;
@@ -19,6 +20,7 @@ export interface Tile {
   selector: 'app-file-navigator',
   templateUrl: './file-navigator.component.html',
   styleUrls: ['./file-navigator.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileNavigatorComponent implements OnInit {
   tiles: Tile[] = [

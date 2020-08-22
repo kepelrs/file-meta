@@ -1,28 +1,14 @@
-<mat-grid-list cols="4">
+<mat-grid-list cols="6">
   <mat-grid-tile
     *ngFor="let child of dreeChildren$ | async"
-    (click)="navigateTo(child)"
+    (click)="child.type === 'directory' && navigateTo(child)"
   >
     <div class="grid-tile-wrap">
-      <!-- <p>
-        {{ child.type }}
-      </p>
-      <p>{{ child.name }}</p>
-      <p>{{ child.hash }}</p>
-      <button
-        *ngIf="child.type === 'file' && !child.metadata"
-        (click)="addMetadata($event, child)"
-      >
-        Add metadata
-      </button>
-      <button *ngIf="child.metadata" (click)="editMetadata($event, child)">
-        Edit metadata
-      </button> -->
       <app-file-card [dreeNode]="child"></app-file-card>
     </div>
   </mat-grid-tile>
 </mat-grid-list>
-<pre>
+<!-- <pre>
 
   {{ fileSystemQuery.dree$ | async | json }}
-</pre>
+</pre> -->
