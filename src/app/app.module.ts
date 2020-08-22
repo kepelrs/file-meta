@@ -21,6 +21,7 @@ import { ButtonModule } from 'primeng/button';
 import { FileNavigatorModule } from './features/file-navigator/file-navigator.module';
 import { CoreModule } from './core/core.module';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { SearchModule } from './features/search/search.module';
 
 @NgModule({
   declarations: [AppComponent, PrettyJsonPipe, PrettyJsonPipe],
@@ -38,6 +39,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
     MatButtonModule,
     MatToolbarModule,
     FileNavigatorModule,
+    SearchModule,
     AppRoutingModule,
     TreeTableModule,
     ButtonModule,
