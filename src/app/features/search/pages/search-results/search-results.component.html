@@ -1,3 +1,26 @@
-<p>
-  search-results works!
-</p>
+<div class="search-inputs">
+  <app-search-input></app-search-input>
+  <div class="search-button">
+    <button class="green-button" mat-raised-button (click)="onSearch()">
+      Pesquisar
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="searchResults.length; else noResults" class="results">
+  <mat-grid-list cols="6">
+    <mat-grid-tile *ngFor="let result of searchResults">
+      <div class="grid-tile-wrap">
+        <app-file-card
+          [dreeNode]="result"
+          [mode]="'allow-metadata'"
+        ></app-file-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-container>
+<ng-template #noResults>
+  <div class="no-results">
+    A atual pesquisa não encontrou resultados.
+  </div>
+</ng-template>

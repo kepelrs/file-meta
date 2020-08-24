@@ -67,10 +67,13 @@ export class FileSystemService {
 
         // Store file reference for future searches
         if (child.metadata) {
-          await fileRepo.save({
-            path: child.path,
-            metadata: child.metadata,
-          });
+          await fileRepo.save(
+            new File({
+              path: child.path,
+              metadata: child.metadata,
+              parsedDreeData: child,
+            })
+          );
         }
       }
     }
