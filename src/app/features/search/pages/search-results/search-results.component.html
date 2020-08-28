@@ -7,9 +7,12 @@
   </div>
 </div>
 
-<ng-container *ngIf="searchResults.length; else noResults" class="results">
+<ng-container
+  *ngIf="(searchQuery.results$ | async).length; else noResults"
+  class="results"
+>
   <mat-grid-list cols="6">
-    <mat-grid-tile *ngFor="let result of searchResults">
+    <mat-grid-tile *ngFor="let result of searchQuery.results$ | async">
       <div class="grid-tile-wrap">
         <app-file-card
           [dreeNode]="result"
@@ -20,7 +23,5 @@
   </mat-grid-list>
 </ng-container>
 <ng-template #noResults>
-  <div class="no-results">
-    A atual pesquisa não encontrou resultados.
-  </div>
+  <div class="no-results">A atual pesquisa não encontrou resultados.</div>
 </ng-template>
