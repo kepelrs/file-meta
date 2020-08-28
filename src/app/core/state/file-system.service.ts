@@ -10,6 +10,7 @@ import { Metadata } from '../db/entities/metadata.entity';
 import { Dree } from 'dree';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { File } from '../db/entities/file.entity';
+import { skipWhile, startWith, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class FileSystemService {
@@ -34,14 +35,15 @@ export class FileSystemService {
     // Watch route changes
     this.routerQuery
       .selectParams('encFolderPath')
-      .subscribe((encFolderPath: string) => {
-        // load last visited location
-        const lastLocation =
-          window.localStorage.getItem(this.localStorageKey) || '.';
-
-        this.scanFs(
-          encFolderPath ? decodeURIComponent(encFolderPath) : lastLocation
-        );
+      .pipe(
+        skipWhile((v) => !v),
+        startWith(window.localStorage.getItem(this.localStorageKey) || '.'),
+        map((encFolderPath) =>
+          encFolderPath ? decodeURIComponent(encFolderPath) : '.'
+        )
+      )
+      .subscribe((decFolderPath: string) => {
+        this.scanFs(decFolderPath);
       });
   }
 
