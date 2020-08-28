@@ -11,8 +11,10 @@ let serve: boolean = args.some(val => val === '--serve');
 function createWindow() {
 
     win = new BrowserWindow({
-        width: 800, 
-        height: 600, 
+        minWidth: 800,
+        minHeight: 600,
+        width: 800,
+        height: 600,
         webPreferences: {
             nodeIntegration: true
         },
@@ -25,7 +27,7 @@ function createWindow() {
             electron: require(`${__dirname}/node_modules/electron`)
         });
         win.loadURL('http://localhost:4200');
-        
+
         // The following is optional and will open the DevTools:
         win.webContents.openDevTools();
     } else {

@@ -7,7 +7,7 @@ import { FileSystemService } from '../../state/file-system.service';
 @Component({
   selector: 'app-manage-metadata',
   templateUrl: './manage-metadata.component.html',
-  styleUrls: ['./manage-metadata.component.css'],
+  styleUrls: ['./manage-metadata.component.scss'],
 })
 export class ManageMetadataComponent implements OnInit {
   dreeNode: DreeWithMetadata;
