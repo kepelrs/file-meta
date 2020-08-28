@@ -106,7 +106,7 @@ export class FileSystemService {
     const metadataRepo = await this.metadataRepo;
     await metadataRepo.save({
       hash: node.hash,
-      content: metadataContent,
+      content: metadataContent || '',
       plainText,
     });
 

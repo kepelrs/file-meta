@@ -1,6 +1,7 @@
 <mat-grid-list cols="3">
   <mat-grid-tile>
     <app-file-card
+      *ngIf="dreeNode"
       [dreeNode]="dreeNode"
       [mode]="'details-view'"
     ></app-file-card>

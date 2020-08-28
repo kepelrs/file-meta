@@ -3,6 +3,7 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/api';
 import { DreeWithMetadata } from '../../types';
 import { Metadata } from '../../db/entities/metadata.entity';
 import { FileSystemService } from '../../state/file-system.service';
+import { DatabaseService } from '../../db/database.service';
 
 @Component({
   selector: 'app-manage-metadata',
@@ -16,21 +17,34 @@ export class ManageMetadataComponent implements OnInit {
   constructor(
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
+    private databaseService: DatabaseService,
     private fileSystemService: FileSystemService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     const dreeNode = this.config.data;
 
     this.dreeNode = {
       ...dreeNode,
-      metadata: dreeNode.metadata || {
-        content: '',
-        hash: dreeNode.hash,
-        sizeInBytes: dreeNode.sizeInBytes,
-      },
+      metadata: await this.getNodeMetadata(dreeNode),
     };
     this.metadataContent = this.dreeNode.metadata.content;
+  }
+
+  /** Loads from db, or returns an empty metadata */
+  private async getNodeMetadata(dreeNode: DreeWithMetadata): Promise<Metadata> {
+    const metadataRepo = (await this.databaseService.connection).getRepository(
+      Metadata
+    );
+    const metadata = await metadataRepo.findOne({ hash: dreeNode.hash });
+
+    if (metadata) {
+      return metadata;
+    }
+
+    return new Metadata({
+      hash: dreeNode.hash,
+    });
   }
 
   onCancel() {

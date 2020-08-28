@@ -15,11 +15,16 @@ export class Metadata extends BaseEntity {
   hash: string;
 
   @Column({ type: 'text' })
-  content: string;
+  content: string = '';
 
   @Column({ type: 'text' })
-  plainText: string;
+  plainText: string = '';
 
   @OneToMany((type) => File, (file) => file.metadata)
   files: File[];
+
+  constructor(metadata: Partial<Metadata>) {
+    super();
+    Object.assign(this, metadata);
+  }
 }
