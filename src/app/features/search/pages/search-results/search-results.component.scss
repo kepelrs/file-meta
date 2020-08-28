@@ -1,3 +1,10 @@
+:host ::ng-deep {
+  .grid-tile-wrap {
+    height: 95%;
+    width: 95%;
+  }
+}
+
 .search-inputs {
   width: 50%;
   margin: auto;

@@ -61,6 +61,10 @@ export class SearchService {
     );
   }
 
+  clearResults() {
+    this.searchStore.update((state) => ({ results: [] }));
+  }
+
   async searchMetadata(keywords: string[]) {
     const metadataRepo = await this.metadataRepo;
     const results: DreeWithMetadata[] = [];

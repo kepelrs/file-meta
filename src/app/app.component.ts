@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
   }
 
   toFileNavigator() {
-    console.log(this.router.url);
     this.router.navigateByUrl(
       `/${encodeURIComponent(this.fileSystemQuery.getValue().folderPath)}`
     );

@@ -6,7 +6,7 @@ import { SearchQuery } from '../../../../core/state/search.query';
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.css'],
+  styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent implements OnInit {
   @ViewChild(SearchInputComponent, { static: false })
@@ -17,7 +17,9 @@ export class SearchResultsComponent implements OnInit {
     public searchQuery: SearchQuery
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchService.clearResults();
+  }
 
   onSearch() {
     this.searchService.searchMetadata(this.searchInput.keywords);
