@@ -7,12 +7,13 @@
   </div>
 </div>
 
-<ng-container
-  *ngIf="(searchQuery.results$ | async).length; else noResults"
-  class="results"
->
+<div class="result-group" *ngFor="let folderName of searchQuery.resultsFolders$ | async">
+  <h3>{{ folderName }}</h3>
+
   <mat-grid-list cols="6">
-    <mat-grid-tile *ngFor="let result of searchQuery.results$ | async">
+    <mat-grid-tile
+      *ngFor="let result of (searchQuery.resultsByFolder$ | async)[folderName]"
+    >
       <div class="grid-tile-wrap">
         <app-file-card
           [dreeNode]="result"
@@ -21,6 +22,11 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
+</div>
+<ng-container
+  *ngIf="(searchQuery.results$ | async).length; else noResults"
+  class="results"
+>
 </ng-container>
 <ng-template #noResults>
   <div class="no-results">A atual pesquisa não encontrou resultados.</div>
