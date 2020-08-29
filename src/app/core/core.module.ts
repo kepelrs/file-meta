@@ -9,6 +9,7 @@ import { ManageMetadataComponent } from './components/manage-metadata/manage-met
 import { MatGridListModule } from '@angular/material/grid-list';
 import { EditorModule } from 'primeng/editor';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [FileCardComponent, DreeToFileIcon, ManageMetadataComponent],
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     MatGridListModule,
     EditorModule,
     FormsModule,
+    TooltipModule,
   ],
   providers: [],
   exports: [FileCardComponent, DreeToFileIcon, ManageMetadataComponent],
