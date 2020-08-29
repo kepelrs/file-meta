@@ -10,6 +10,7 @@ import { NavControlsComponent } from './components/nav-controls/nav-controls.com
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [FileNavigatorComponent, NavControlsComponent],
@@ -24,6 +25,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    LayoutModule,
   ],
   exports: [],
 })

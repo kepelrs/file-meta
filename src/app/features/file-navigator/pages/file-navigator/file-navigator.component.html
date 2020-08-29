@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<mat-grid-list cols="6">
+<mat-grid-list [cols]="gridCols$ | async">
   <mat-grid-tile *ngFor="let child of filteredChildren$ | async">
     <div class="grid-tile-wrap">
       <app-file-card

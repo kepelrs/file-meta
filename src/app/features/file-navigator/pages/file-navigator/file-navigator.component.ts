@@ -6,6 +6,8 @@ import { map, startWith, tap } from 'rxjs/operators';
 import { DreeWithMetadata } from '../../../../core/types';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { SubSink } from 'subsink';
 
 export interface Tile {
   color: string;
@@ -21,13 +23,7 @@ export interface Tile {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileNavigatorComponent implements OnInit {
-  tiles: Tile[] = [
-    { text: 'One', cols: 1, rows: 1, color: 'lightblue' },
-    { text: 'Two', cols: 1, rows: 1, color: 'lightgreen' },
-    { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
-    { text: 'Four', cols: 1, rows: 1, color: '#DDBDF1' },
-    { text: 'Five', cols: 1, rows: 1, color: '#DDBDF1' },
-  ];
+  gridCols$: Observable<number>;
 
   dreeChildren$: Observable<DreeWithMetadata[]>;
   filteredChildren$: Observable<DreeWithMetadata[]>;
@@ -35,12 +31,20 @@ export class FileNavigatorComponent implements OnInit {
   filterInput = new FormControl('');
 
   constructor(
+    private breakpointObserver: BreakpointObserver,
     public fileSystemService: FileSystemService, // must be imported even if unused, in order to instantiate: https://github.com/angular/angular/issues/25633#issuecomment-649715014
     public fileSystemQuery: FileSystemQuery
   ) {}
 
   ngOnInit() {
     this.displayDreeNodes();
+    this.watchWindowSize();
+  }
+
+  private watchWindowSize() {
+    this.gridCols$ = this.breakpointObserver
+      .observe([Breakpoints.Large])
+      .pipe(map((result) => (console.log(result) || result.matches ? 7 : 5)));
   }
 
   private displayDreeNodes() {
