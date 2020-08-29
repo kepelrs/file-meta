@@ -23,7 +23,7 @@ mat-card {
 
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* TODO add hover when ellipsis */
+  text-overflow: ellipsis;
 }
 
 .name-and-icon {
