@@ -1,4 +1,4 @@
-<mat-card class="mat-elevation-z1" (click)="openFile()">
+<mat-card class="mat-elevation-z1" (dblclick)="openFile($event)">
   <div
     *ngIf="dreeNode.type === 'file' && mode === 'allow-metadata'"
     class="ear"

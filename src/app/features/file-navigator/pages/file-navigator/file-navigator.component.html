@@ -2,10 +2,7 @@
 
 <h1>{{ fileSystemQuery.folderName$ | async }}</h1>
 <mat-grid-list cols="6">
-  <mat-grid-tile
-    *ngFor="let child of dreeChildren$ | async"
-    (click)="child.type === 'directory' && navigateTo(child)"
-  >
+  <mat-grid-tile *ngFor="let child of dreeChildren$ | async">
     <div class="grid-tile-wrap">
       <app-file-card
         [dreeNode]="child"

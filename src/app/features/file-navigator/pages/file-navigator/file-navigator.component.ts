@@ -60,8 +60,4 @@ export class FileNavigatorComponent implements OnInit {
       )
     );
   }
-
-  public navigateTo(child: DreeWithMetadata) {
-    this.router.navigate([encodeURIComponent(child.path)]);
-  }
 }

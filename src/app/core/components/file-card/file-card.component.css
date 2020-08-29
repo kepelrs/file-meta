@@ -1,4 +1,5 @@
 mat-card {
+  user-select: none;
   overflow: hidden;
   height: 100%;
   cursor: pointer;

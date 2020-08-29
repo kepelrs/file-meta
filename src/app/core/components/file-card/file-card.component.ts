@@ -3,6 +3,7 @@ import { DreeWithMetadata } from '../../types';
 import { DialogService } from 'primeng/api';
 import { ManageMetadataComponent } from '../manage-metadata/manage-metadata.component';
 import { shell } from 'electron';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-file-card',
@@ -14,7 +15,7 @@ export class FileCardComponent implements OnInit {
   @Input() dreeNode: DreeWithMetadata;
   @Input() mode: 'allow-metadata' | 'details-view';
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -22,11 +23,7 @@ export class FileCardComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.dreeNode.metadata) {
-      this.openDialog();
-    } else {
-      this.openDialog();
-    }
+    this.openDialog();
   }
 
   openDialog() {
@@ -38,9 +35,14 @@ export class FileCardComponent implements OnInit {
     });
   }
 
-  openFile() {
+  openFile(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (this.dreeNode.type === 'file') {
       shell.openItem(this.dreeNode.path);
+    } else {
+      this.router.navigate([encodeURIComponent(this.dreeNode.path)]);
     }
   }
 }
