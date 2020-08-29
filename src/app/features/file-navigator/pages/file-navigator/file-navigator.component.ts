@@ -44,7 +44,7 @@ export class FileNavigatorComponent implements OnInit {
   private watchWindowSize() {
     this.gridCols$ = this.breakpointObserver
       .observe([Breakpoints.Large])
-      .pipe(map((result) => (console.log(result) || result.matches ? 7 : 5)));
+      .pipe(map((result) => (result.matches ? 7 : 5)));
   }
 
   private displayDreeNodes() {
