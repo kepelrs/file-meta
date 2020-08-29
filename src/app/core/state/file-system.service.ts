@@ -92,11 +92,6 @@ export class FileSystemService {
     return dreeScan;
   }
 
-  private async reScanFs() {
-    const currentFolderPath = this.fileSystemStore.getValue().folderPath;
-    await this.scanFs(currentFolderPath);
-  }
-
   private async scanFs(folderPath: string) {
     const dreeScan = await this.getDreeWithHashAndMeta(folderPath);
 
@@ -105,6 +100,11 @@ export class FileSystemService {
       dree: dreeScan,
     }));
     window.localStorage.setItem(LAST_LOCATION_KEY, folderPath);
+  }
+
+  public async reScanFs() {
+    const currentFolderPath = this.fileSystemStore.getValue().folderPath;
+    await this.scanFs(currentFolderPath);
   }
 
   public async addMetadata(

@@ -7,10 +7,13 @@ import {
   ElementRef,
 } from '@angular/core';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, tap, take } from 'rxjs/operators';
 import * as fs from 'fs';
 import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
+import { FileSystemService } from '../../../../core/state/file-system.service';
+import { FileSystemQuery } from '../../../../core/state/file-system.query';
+import * as path from 'path';
 const fsPromise = fs.promises;
 
 @Component({
@@ -27,7 +30,14 @@ export class NavControlsComponent implements OnInit, AfterViewInit, OnDestroy {
     map((v) => decodeURIComponent(v))
   );
 
-  constructor(private routerQuery: RouterQuery, private router: Router) {}
+  parentFolder = this.currentRoute.pipe(map((v) => path.dirname(v)));
+
+  constructor(
+    private routerQuery: RouterQuery,
+    private router: Router,
+    private fileSystemService: FileSystemService,
+    private fileSystemQuery: FileSystemQuery
+  ) {}
 
   ngOnInit() {}
 
@@ -62,25 +72,22 @@ export class NavControlsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const input = event.target as HTMLInputElement;
-    const path = input.value;
-    this.navigate(path);
+    const navPath = input.value;
+    this.navigate(navPath);
   }
 
   onPathBlur(event: FocusEvent) {
     const input = event.target as HTMLInputElement;
-    const path = input.value;
-    this.navigate(path);
+    const navPath = input.value;
+    this.navigate(navPath);
   }
 
-  public goBack() {
-    if (window.history.length < 2) {
-      // Do not go back when no history exists: it would just refresh the app
-      return;
-    }
-    window.history.back();
+  public async goBack() {
+    const parentFolder = await this.parentFolder.pipe(take(1)).toPromise();
+    this.router.navigate([encodeURIComponent(parentFolder)]);
   }
 
   public reload() {
-    window.location.reload();
+    this.fileSystemService.reScanFs();
   }
 }
