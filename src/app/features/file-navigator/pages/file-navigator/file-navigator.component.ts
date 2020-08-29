@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileSystemQuery } from '../../../../core/state/file-system.query';
 import { FileSystemService } from '../../../../core/state/file-system.service';
 import { Observable, combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import { DreeWithMetadata } from '../../../../core/types';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -46,6 +46,7 @@ export class FileNavigatorComponent implements OnInit {
   private displayDreeNodes() {
     // Sort alphabetically
     this.dreeChildren$ = this.fileSystemQuery.dree$.pipe(
+      tap((_) => this.filterInput.setValue('')),
       map((dree) => dree.children || []),
       map((children) =>
         // folders first, then alphabetically
