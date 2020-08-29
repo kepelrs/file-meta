@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 import * as path from 'path';
-import { Dree } from 'dree';
-import { Metadata } from '../db/entities/metadata.entity';
 import { DreeWithMetadata } from '../types';
+import { LAST_LOCATION_KEY } from '../constants';
 
 export interface FileSystemState {
   folderPath: string;
@@ -11,7 +10,9 @@ export interface FileSystemState {
 }
 
 export function createInitialState(): FileSystemState {
-  const currentFolderPath = path.resolve('.');
+  const currentFolderPath = path.resolve(
+    window.localStorage.getItem(LAST_LOCATION_KEY) || '.'
+  );
 
   return {
     folderPath: currentFolderPath,

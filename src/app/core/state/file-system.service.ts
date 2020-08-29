@@ -7,22 +7,24 @@ import { HashService } from '../services/hash.service';
 import { DreeWithMetadata } from '../types';
 import { Repository } from 'typeorm';
 import { Metadata } from '../db/entities/metadata.entity';
-import { Dree } from 'dree';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { File } from '../db/entities/file.entity';
-import { skipWhile, startWith, map } from 'rxjs/operators';
+import { map, tap, filter } from 'rxjs/operators';
+import { LAST_LOCATION_KEY } from '../constants';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class FileSystemService {
   private metadataRepo: Promise<Repository<Metadata>>;
   private fileRepo: Promise<Repository<File>>;
-  private localStorageKey = 'lastLocation';
 
   constructor(
     private fileSystemStore: FileSystemStore,
+    private fileSystemQuery: FileSystemQuery,
     private hashService: HashService,
     private dbService: DatabaseService,
-    private routerQuery: RouterQuery
+    private routerQuery: RouterQuery,
+    private router: Router
   ) {
     // setup repos
     this.metadataRepo = this.dbService.connection.then((c) =>
@@ -36,11 +38,19 @@ export class FileSystemService {
     this.routerQuery
       .selectParams('encFolderPath')
       .pipe(
-        skipWhile((v) => !v),
-        startWith(window.localStorage.getItem(this.localStorageKey) || '.'),
-        map((encFolderPath) =>
-          encFolderPath ? decodeURIComponent(encFolderPath) : '.'
-        )
+        tap((v) => {
+          if (!v) {
+            const folderPath = this.fileSystemQuery.getValue().folderPath;
+            const encodedUrl = encodeURIComponent(folderPath);
+
+            // TODO: Create reproduction fo this setTimeout for akita -> https://github.com/datorama/akita/issues/399
+            setTimeout(() => {
+              this.router.navigate([encodedUrl]);
+            }, 0);
+          }
+        }),
+        filter((v) => !!v),
+        map((encFolderPath) => decodeURIComponent(encFolderPath))
       )
       .subscribe((decFolderPath: string) => {
         this.scanFs(decFolderPath);
@@ -91,11 +101,11 @@ export class FileSystemService {
   private async scanFs(folderPath: string) {
     const dreeScan = await this.getDreeWithHashAndMeta(folderPath);
 
-    this.fileSystemStore.update((state) => ({
+    this.fileSystemStore.update(() => ({
       folderPath: folderPath,
       dree: dreeScan,
     }));
-    window.localStorage.setItem(this.localStorageKey, folderPath);
+    window.localStorage.setItem(LAST_LOCATION_KEY, folderPath);
   }
 
   public async addMetadata(

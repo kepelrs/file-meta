@@ -1,7 +1,13 @@
 <mat-toolbar class="action-toolbar">
   <div class="path">
     <mat-form-field appearance="outline">
-      <input matInput placeholder="Placeholder" />
+      <input
+        matInput
+        placeholder="Adicione uma pasta"
+        [ngModel]="currentRoute | async"
+        (blur)="onPathBlur($event)"
+        (keyup)="onKeyUp($event)"
+      />
     </mat-form-field>
   </div>
 

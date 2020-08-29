@@ -8,7 +8,7 @@ import * as dree from 'dree';
 @Injectable({ providedIn: 'root' })
 export class FileSystemQuery extends Query<FileSystemState> {
   folderPath$ = this.select('folderPath');
-  folderName = this.select('folderPath').pipe(
+  folderName$ = this.select('folderPath').pipe(
     map((currentFolderPath) => path.basename(currentFolderPath))
   );
   dree$ = this.select('dree').pipe(skipWhile((v) => !v));
