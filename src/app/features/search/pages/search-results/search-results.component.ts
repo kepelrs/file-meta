@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { SearchService } from '../../../../core/state/search.service';
 import { SearchQuery } from '../../../../core/state/search.query';
+import { shell } from 'electron';
 
 @Component({
   selector: 'app-search-results',
@@ -23,5 +24,9 @@ export class SearchResultsComponent implements OnInit {
 
   onSearch() {
     this.searchService.searchMetadata(this.searchInput.keywords);
+  }
+
+  openFolderWithExternalApp(folderPath: string) {
+    shell.openItem(folderPath);
   }
 }

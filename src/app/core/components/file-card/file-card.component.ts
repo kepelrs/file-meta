@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DreeWithMetadata } from '../../types';
 import { DialogService } from 'primeng/api';
 import { ManageMetadataComponent } from '../manage-metadata/manage-metadata.component';
+import { shell } from 'electron';
 
 @Component({
   selector: 'app-file-card',
@@ -35,5 +36,11 @@ export class FileCardComponent implements OnInit {
       data: this.dreeNode,
       closable: false,
     });
+  }
+
+  openFile() {
+    if (this.dreeNode.type === 'file') {
+      shell.openItem(this.dreeNode.path);
+    }
   }
 }

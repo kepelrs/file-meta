@@ -7,8 +7,16 @@
   </div>
 </div>
 
-<div class="result-group" *ngFor="let folderName of searchQuery.resultsFolders$ | async">
-  <h3>{{ folderName }}</h3>
+<div
+  class="result-group"
+  *ngFor="let folderName of searchQuery.resultsFolders$ | async"
+>
+  <div class="result-header">
+    <span class="path">{{ folderName }}</span>
+    <mat-icon (click)="openFolderWithExternalApp(folderName)"
+      >open_in_new</mat-icon
+    >
+  </div>
 
   <mat-grid-list cols="6">
     <mat-grid-tile

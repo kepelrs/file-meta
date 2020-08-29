@@ -25,3 +25,22 @@
 .result-group {
   margin: 1em;
 }
+
+.result-header {
+  .path {
+    font-size: 1.5em;
+    color: #999;
+    display: inline;
+    font-style: italic;
+  }
+
+  mat-icon {
+    margin-left: 0.5em;
+    color: #999;
+    cursor: pointer;
+  }
+
+  mat-icon:hover {
+    color: initial;
+  }
+}
