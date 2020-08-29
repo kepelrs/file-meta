@@ -19,7 +19,7 @@ export interface Tile {
 @Component({
   selector: 'app-file-navigator',
   templateUrl: './file-navigator.component.html',
-  styleUrls: ['./file-navigator.component.css'],
+  styleUrls: ['./file-navigator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileNavigatorComponent implements OnInit {
@@ -35,7 +35,7 @@ export class FileNavigatorComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fileSystemService: FileSystemService,
+    public fileSystemService: FileSystemService, // must be imported even if unused, in order to instantiate: https://github.com/angular/angular/issues/25633#issuecomment-649715014
     public fileSystemQuery: FileSystemQuery
   ) {}
 

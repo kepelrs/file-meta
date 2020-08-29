@@ -1,5 +1,6 @@
 <app-nav-controls></app-nav-controls>
 
+<h1>{{ fileSystemQuery.folderName$ | async }}</h1>
 <mat-grid-list cols="6">
   <mat-grid-tile
     *ngFor="let child of dreeChildren$ | async"

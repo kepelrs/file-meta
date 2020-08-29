@@ -1,8 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  AfterViewInit,
+  ElementRef,
+} from '@angular/core';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { filter, map } from 'rxjs/operators';
 import * as fs from 'fs';
 import { Router } from '@angular/router';
+import { SubSink } from 'subsink';
 const fsPromise = fs.promises;
 
 @Component({
@@ -10,7 +18,10 @@ const fsPromise = fs.promises;
   templateUrl: './nav-controls.component.html',
   styleUrls: ['./nav-controls.component.scss'],
 })
-export class NavControlsComponent implements OnInit {
+export class NavControlsComponent implements OnInit, AfterViewInit, OnDestroy {
+  private subSink = new SubSink();
+  @ViewChild('navPath', { static: false }) input: ElementRef;
+
   currentRoute = this.routerQuery.selectParams('encFolderPath').pipe(
     filter((v) => !!v),
     map((v) => decodeURIComponent(v))
@@ -19,6 +30,19 @@ export class NavControlsComponent implements OnInit {
   constructor(private routerQuery: RouterQuery, private router: Router) {}
 
   ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.subSink.sink = this.currentRoute.subscribe((_) => {
+      const inputElement: HTMLInputElement = this.input.nativeElement;
+      setTimeout(() => {
+        inputElement.scrollLeft = 9999;
+      }, 0);
+    });
+  }
+
+  ngOnDestroy() {
+    this.subSink.unsubscribe();
+  }
 
   private async navigate(path: string) {
     try {
