@@ -1,8 +1,21 @@
 <app-nav-controls></app-nav-controls>
 
-<h1>{{ fileSystemQuery.folderName$ | async }}</h1>
+<div class="sub-nav">
+  <h1>{{ fileSystemQuery.folderName$ | async }}</h1>
+  <div class="find-in-folder">
+    <mat-form-field appearance="outline">
+      <mat-label>Pesquisar nesta pasta</mat-label>
+      <input
+        matInput
+        placeholder="Nome ou meta-dados"
+        [formControl]="filterInput"
+      />
+    </mat-form-field>
+  </div>
+</div>
+
 <mat-grid-list cols="6">
-  <mat-grid-tile *ngFor="let child of dreeChildren$ | async">
+  <mat-grid-tile *ngFor="let child of filteredChildren$ | async">
     <div class="grid-tile-wrap">
       <app-file-card
         [dreeNode]="child"

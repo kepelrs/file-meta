@@ -1,13 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FileSystemQuery } from '../../../../core/state/file-system.query';
 import { FileSystemService } from '../../../../core/state/file-system.service';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { Dree } from 'dree';
+import { Observable, combineLatest } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { DreeWithMetadata } from '../../../../core/types';
-import { DatabaseService } from '../../../../core/db/database.service';
-import { Router } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 export interface Tile {
   color: string;
@@ -31,19 +29,22 @@ export class FileNavigatorComponent implements OnInit {
     { text: 'Five', cols: 1, rows: 1, color: '#DDBDF1' },
   ];
 
-  dreeChildren$: Observable<any>;
+  dreeChildren$: Observable<DreeWithMetadata[]>;
+  filteredChildren$: Observable<DreeWithMetadata[]>;
+
+  filterInput = new FormControl('');
 
   constructor(
-    private router: Router,
     public fileSystemService: FileSystemService, // must be imported even if unused, in order to instantiate: https://github.com/angular/angular/issues/25633#issuecomment-649715014
     public fileSystemQuery: FileSystemQuery
   ) {}
 
   ngOnInit() {
-    this.dreeToFsNodes();
+    this.displayDreeNodes();
   }
 
-  private dreeToFsNodes() {
+  private displayDreeNodes() {
+    // Sort alphabetically
     this.dreeChildren$ = this.fileSystemQuery.dree$.pipe(
       map((dree) => dree.children || []),
       map((children) =>
@@ -58,6 +59,28 @@ export class FileNavigatorComponent implements OnInit {
             : -1
         )
       )
+    );
+
+    // Apply filters when there are any
+    const filterValueObs = this.filterInput.valueChanges.pipe(startWith(''));
+    this.filteredChildren$ = combineLatest([
+      this.dreeChildren$,
+      filterValueObs,
+    ]).pipe(
+      map(([nodes, keyword]) => {
+        return nodes.filter((node) => {
+          if (!keyword) {
+            return true;
+          }
+
+          const lowerName = node.name.toLowerCase();
+          const lowerMeta = (
+            (node.metadata && node.metadata.plainText) ||
+            ''
+          ).toLowerCase();
+          return lowerName.includes(keyword) || lowerMeta.includes(keyword);
+        });
+      })
     );
   }
 }

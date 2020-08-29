@@ -8,3 +8,14 @@ h1 {
   width: 100%;
   height: 100%;
 }
+
+.sub-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  .find-in-folder {
+    margin-top: 1em;
+  }
+}
