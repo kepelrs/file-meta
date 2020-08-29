@@ -1,6 +1,5 @@
 h1 {
   color: #666;
-  margin: 1em;
 }
 
 .grid-tile-wrap {
@@ -14,6 +13,7 @@ h1 {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1em;
 
   .find-in-folder {
     margin-top: 1em;
