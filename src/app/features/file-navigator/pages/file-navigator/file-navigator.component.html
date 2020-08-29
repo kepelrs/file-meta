@@ -1,11 +1,4 @@
-<mat-toolbar class="action-toolbar">
-  <button (click)="goBack()" mat-mini-fab color="white">
-    <mat-icon>keyboard_backspace </mat-icon>
-  </button>
-  <button (click)="reload()" mat-mini-fab color="white">
-    <mat-icon>refresh </mat-icon>
-  </button>
-</mat-toolbar>
+<app-nav-controls></app-nav-controls>
 
 <mat-grid-list cols="6">
   <mat-grid-tile
@@ -20,7 +13,3 @@
     </div>
   </mat-grid-tile>
 </mat-grid-list>
-<!-- <pre>
-
-  {{ fileSystemQuery.dree$ | async | json }}
-</pre> -->

@@ -6,9 +6,10 @@ import { CoreModule } from '../../core/core.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { NavControlsComponent } from './components/nav-controls/nav-controls.component';
 
 @NgModule({
-  declarations: [FileNavigatorComponent],
+  declarations: [FileNavigatorComponent, NavControlsComponent],
   imports: [
     CoreModule,
     CommonModule,
