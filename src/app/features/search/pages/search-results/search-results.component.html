@@ -1,10 +1,10 @@
 <div class="search-inputs">
-  <app-search-input></app-search-input>
-  <div class="search-button">
-    <button class="green-button" mat-raised-button (click)="onSearch()">
+  <app-search-input (keywordsChanged)="search($event)"></app-search-input>
+  <!-- <div class="search-button">
+    <button class="green-button" mat-raised-button (click)="search()">
       Pesquisar
     </button>
-  </div>
+  </div> -->
 </div>
 
 <div

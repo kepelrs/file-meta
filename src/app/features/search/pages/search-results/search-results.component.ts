@@ -22,8 +22,10 @@ export class SearchResultsComponent implements OnInit {
     this.searchService.clearResults();
   }
 
-  onSearch() {
-    this.searchService.searchMetadata(this.searchInput.keywords);
+  search(keywords?: string[]) {
+    keywords = keywords || this.searchInput.keywords;
+
+    this.searchService.searchMetadata(keywords);
   }
 
   openFolderWithExternalApp(folderPath: string) {

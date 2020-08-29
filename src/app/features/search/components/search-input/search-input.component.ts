@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -14,6 +14,7 @@ export class SearchInputComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   keywords: string[] = [];
+  @Output() keywordsChanged: EventEmitter<string[]> = new EventEmitter();
 
   constructor() {}
 
@@ -32,6 +33,8 @@ export class SearchInputComponent implements OnInit {
     if (input) {
       input.value = '';
     }
+
+    this.keywordsChanged.emit(this.keywords);
   }
 
   remove(keyword: string): void {
@@ -40,5 +43,7 @@ export class SearchInputComponent implements OnInit {
     if (index >= 0) {
       this.keywords.splice(index, 1);
     }
+
+    this.keywordsChanged.emit(this.keywords);
   }
 }
