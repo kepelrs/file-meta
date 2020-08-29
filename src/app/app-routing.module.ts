@@ -5,9 +5,10 @@ import { FileNavigatorComponent } from './features/file-navigator/pages/file-nav
 import { SearchResultsComponent } from './features/search/pages/search-results/search-results.component';
 
 const routes: Routes = [
-  { path: '', component: FileNavigatorComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/.' },
   { path: 'search', component: SearchResultsComponent },
   { path: ':encFolderPath', component: FileNavigatorComponent },
+  { path: '**', redirectTo: '/.' },
 ];
 
 @NgModule({

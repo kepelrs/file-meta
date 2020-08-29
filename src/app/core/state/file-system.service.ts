@@ -39,17 +39,16 @@ export class FileSystemService {
       .selectParams('encFolderPath')
       .pipe(
         tap((v) => {
-          if (!v) {
-            const folderPath = this.fileSystemQuery.getValue().folderPath;
-            const encodedUrl = encodeURIComponent(folderPath);
+          if (v === '.') {
+            const fullPath = this.fileSystemQuery.getValue().folderPath;
 
             // TODO: Create reproduction fo this setTimeout for akita -> https://github.com/datorama/akita/issues/399
             setTimeout(() => {
-              this.router.navigate([encodedUrl]);
+              this.router.navigate([encodeURIComponent(fullPath)]);
             }, 0);
           }
         }),
-        filter((v) => !!v),
+        filter((v) => !!v && v !== '.'),
         map((encFolderPath) => decodeURIComponent(encFolderPath))
       )
       .subscribe((decFolderPath: string) => {

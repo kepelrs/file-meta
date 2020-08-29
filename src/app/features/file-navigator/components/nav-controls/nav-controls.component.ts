@@ -7,7 +7,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import * as fs from 'fs';
 import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
