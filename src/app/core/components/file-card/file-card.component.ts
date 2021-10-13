@@ -40,7 +40,7 @@ export class FileCardComponent implements OnInit {
     event.stopPropagation();
 
     if (this.dreeNode.type === 'file') {
-      shell.openItem(this.dreeNode.path);
+      shell.openPath(this.dreeNode.path);
     } else {
       this.router.navigate([encodeURIComponent(this.dreeNode.path)]);
     }

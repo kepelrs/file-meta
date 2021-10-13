@@ -29,6 +29,6 @@ export class SearchResultsComponent implements OnInit {
   }
 
   openFolderWithExternalApp(folderPath: string) {
-    shell.openItem(folderPath);
+    shell.openPath(folderPath);
   }
 }
