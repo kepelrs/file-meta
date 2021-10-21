@@ -3,6 +3,9 @@ import { DatabaseService } from './core/db/database.service';
 import { Router } from '@angular/router';
 import { FileSystemService } from './core/state/file-system.service';
 import { FileSystemQuery } from './core/state/file-system.query';
+import { AppLanguage } from './core/types';
+import { SELECTED_LANGUAGE } from './core/constants';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +13,31 @@ import { FileSystemQuery } from './core/state/file-system.query';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  languages: AppLanguage[] = ['en', 'pt'];
+  selectedLanguage: AppLanguage = window.localStorage.getItem(
+    SELECTED_LANGUAGE
+  ) as AppLanguage;
+
   constructor(
     private router: Router,
-    private fileSystemQuery: FileSystemQuery
+    private fileSystemQuery: FileSystemQuery,
+    private translocoService: TranslocoService
   ) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.translocoService.setActiveLang(this.selectedLanguage);
+  }
 
   get pageTitle() {
     if (this.router.url.startsWith('/search')) {
-      return 'Pesquisa';
+      return 'metadata-search';
     }
-    return 'Navegador';
+    return 'navigator';
+  }
+
+  onLanguageChange(language: AppLanguage) {
+    window.localStorage.setItem(SELECTED_LANGUAGE, language);
+    this.translocoService.setActiveLang(language);
   }
 
   toFileNavigator() {

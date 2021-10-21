@@ -7,19 +7,19 @@
     ></app-file-card>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2">
-    <p-editor
-      [(ngModel)]="metadataContent"
-    ></p-editor>
+    <p-editor [(ngModel)]="metadataContent"></p-editor>
   </mat-grid-tile>
 </mat-grid-list>
-<div class="actions">
-  <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+<div class="actions" *transloco="let t; read: 'metadata-editor'">
+  <button mat-raised-button color="warn" (click)="onCancel()">
+    {{ t('cancel-button') }}
+  </button>
   <button
     mat-raised-button
     class="green-button"
     color="primary"
     (click)="onSave()"
   >
-    Salvar
+    {{ t('save-button') }}
   </button>
 </div>

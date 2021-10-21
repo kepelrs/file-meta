@@ -1,8 +1,8 @@
-<div class="search-inputs">
+<div class="search-inputs" *transloco="let t; read: 'metadata-search'">
   <app-search-input (keywordsChanged)="search($event)"></app-search-input>
   <div class="search-button">
     <button class="green-button" mat-raised-button (click)="search()">
-      Pesquisar
+      {{ t('search-button') }}
     </button>
   </div>
 </div>
@@ -37,5 +37,7 @@
 >
 </ng-container>
 <ng-template #noResults>
-  <div class="no-results">A atual pesquisa não encontrou resultados.</div>
+  <div class="no-results" *transloco="let t; read: 'metadata-search'">
+    {{ t('empty-results') }}
+  </div>
 </ng-template>

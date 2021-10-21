@@ -22,6 +22,9 @@ import { CoreModule } from './core/core.module';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { SearchModule } from './features/search/search.module';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { HttpClientModule } from '@angular/common/http';
+import { TranslocoRootModule } from './transloco-root.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,6 +47,9 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     TreeTableModule,
     ButtonModule,
     DynamicDialogModule,
+    HttpClientModule,
+    TranslocoRootModule,
+    MatSelectModule,
   ],
   providers: [FileSystemQuery, FileSystemStore, FileSystemService],
   bootstrap: [AppComponent],

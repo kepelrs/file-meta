@@ -1,13 +1,13 @@
 <app-nav-controls></app-nav-controls>
 
-<div class="sub-nav">
+<div class="sub-nav" *transloco="let t; read: 'navigator.search'">
   <h1>> {{ fileSystemQuery.folderName$ | async }}</h1>
   <div class="find-in-folder">
     <mat-form-field appearance="outline">
-      <mat-label>Pesquisar nesta pasta</mat-label>
+      <mat-label>{{ t('placeholder') }}</mat-label>
       <input
         matInput
-        placeholder="Nome ou meta-dados"
+        placeholder="{{ t('hint') }}"
         [formControl]="filterInput"
       />
     </mat-form-field>

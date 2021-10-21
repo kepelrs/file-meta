@@ -1,8 +1,19 @@
-<mat-toolbar class="mat-elevation-z3">
-  {{ pageTitle }}
+<mat-toolbar class="mat-elevation-z3" *transloco="let t; read: 'nav-bar'">
+  {{ t(pageTitle) }}
   <span class="spacer"></span>
 
-  <button mat-button (click)="toFileNavigator()">Navegador</button>
-  <button mat-button (click)="toSearch()">Pesquisa de Metadados</button>
+  <button mat-button (click)="toFileNavigator()">{{ t('navigator') }}</button>
+  <button mat-button (click)="toSearch()">{{ t('metadata-search') }}</button>
+  <mat-form-field class="language-select">
+    <!-- <mat-label>Favorite food</mat-label> -->
+    <mat-select
+      [(ngModel)]="selectedLanguage"
+      (ngModelChange)="onLanguageChange($event)"
+    >
+      <mat-option *ngFor="let language of languages" [value]="language">
+        {{ language | uppercase }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </mat-toolbar>
 <router-outlet></router-outlet>

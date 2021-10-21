@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [FileNavigatorComponent, NavControlsComponent],
@@ -26,6 +27,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatFormFieldModule,
     MatInputModule,
     LayoutModule,
+    TranslocoModule,
   ],
   exports: [],
 })

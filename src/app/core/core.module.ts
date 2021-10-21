@@ -10,6 +10,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { EditorModule } from 'primeng/editor';
 import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [FileCardComponent, DreeToFileIcon, ManageMetadataComponent],
@@ -22,6 +23,7 @@ import { TooltipModule } from 'primeng/tooltip';
     EditorModule,
     FormsModule,
     TooltipModule,
+    TranslocoModule,
   ],
   providers: [],
   exports: [FileCardComponent, DreeToFileIcon, ManageMetadataComponent],

@@ -4,6 +4,7 @@ import { DialogService } from 'primeng/api';
 import { ManageMetadataComponent } from '../manage-metadata/manage-metadata.component';
 import { shell } from 'electron';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-file-card',
@@ -15,7 +16,11 @@ export class FileCardComponent implements OnInit {
   @Input() dreeNode: DreeWithMetadata;
   @Input() mode: 'allow-metadata' | 'details-view';
 
-  constructor(private dialogService: DialogService, private router: Router) {}
+  constructor(
+    private dialogService: DialogService,
+    private router: Router,
+    private translocoService: TranslocoService
+  ) {}
 
   ngOnInit() {}
 
@@ -28,7 +33,7 @@ export class FileCardComponent implements OnInit {
 
   openDialog() {
     const ref = this.dialogService.open(ManageMetadataComponent, {
-      header: 'Metadados do arquivo',
+      header: this.translocoService.translate('metadata-editor.box-title'),
       width: '85%',
       data: this.dreeNode,
       closable: false,

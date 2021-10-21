@@ -41,6 +41,7 @@
     "@datorama/akita-ng-router-store": "^5.1.6",
     "@nebular/eva-icons": "4.6.0",
     "@nebular/theme": "^4.6.0",
+    "@ngneat/transloco": "^2.23.5",
     "eva-icons": "^1.1.3",
     "file-icon-vectors": "^1.0.0",
     "md5-file": "^5.0.0",

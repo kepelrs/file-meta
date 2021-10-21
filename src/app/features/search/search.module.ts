@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CoreModule } from '../../core/core.module';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [SearchResultsComponent, SearchInputComponent],
@@ -21,6 +22,7 @@ import { CoreModule } from '../../core/core.module';
     MatButtonModule,
     MatGridListModule,
     CoreModule,
+    TranslocoModule,
   ],
 })
 export class SearchModule {}

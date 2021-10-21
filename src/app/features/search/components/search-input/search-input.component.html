@@ -1,5 +1,5 @@
-<mat-form-field>
-  <mat-chip-list #chipList aria-label="Palavras chave">
+<mat-form-field *transloco="let t; read: 'metadata-search'">
+  <mat-chip-list #chipList>
     <mat-chip
       *ngFor="let keyword of keywords"
       [selectable]="selectable"
@@ -10,7 +10,7 @@
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
     <input
-      placeholder="Palavras chave..."
+      placeholder="{{ t('input.placeholder') }}"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       [matChipInputAddOnBlur]="addOnBlur"

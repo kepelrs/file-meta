@@ -1,0 +1,24 @@
+{
+  "nav-bar": {
+    "navigator": "Navigator",
+    "metadata-search": "Search Metadata"
+  },
+  "navigator": {
+    "search": {
+      "placeholder": "Search this folder",
+      "hint": "Name or metadata"
+    }
+  },
+  "metadata-search": {
+    "input": {
+      "placeholder": "Keywords..."
+    },
+    "empty-results": "The current search did not find any results.",
+    "search-button": "Search"
+  },
+  "metadata-editor": {
+    "box-title": "File metadata",
+    "cancel-button": "Cancel",
+    "save-button": "Save"
+  }
+}
