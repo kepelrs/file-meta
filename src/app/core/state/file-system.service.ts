@@ -56,20 +56,12 @@ export class FileSystemService {
       });
   }
 
-  /**
-   * WARNING: Has side effects.
-   * TODO: Refactor functionality for proper semantics
-   */
-  private async getDreeWithHashAndMeta(
-    folderPath: string
-  ): Promise<DreeWithMetadata> {
-    const metadataRepo = await this.metadataRepo;
-    const fileRepo = await this.fileRepo;
-
-    const dreeScan = dree.scan(folderPath, { hash: false, depth: 1 });
-    const children: DreeWithMetadata[] = dreeScan.children || [];
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
+  private async associateFileMetadata(
+    child: DreeWithMetadata,
+    metadataRepo: Repository<Metadata>,
+    fileRepo: Repository<File>
+  ) {
+    try {
       if (child.type === 'file') {
         child.hash = await this.hashService.hashFile(child.path);
         child.metadata = await metadataRepo.findOne({
@@ -87,6 +79,26 @@ export class FileSystemService {
           );
         }
       }
+    } catch (error) {
+      console.log('Error hashing file: ', error);
+    }
+  }
+
+  /**
+   * WARNING: Has side effects.
+   * TODO: Refactor functionality for proper semantics
+   */
+  private async getDreeWithHashAndMeta(
+    folderPath: string
+  ): Promise<DreeWithMetadata> {
+    const metadataRepo = await this.metadataRepo;
+    const fileRepo = await this.fileRepo;
+
+    const dreeScan = dree.scan(folderPath, { hash: false, depth: 1 });
+    const children: DreeWithMetadata[] = dreeScan.children || [];
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      await this.associateFileMetadata(child, metadataRepo, fileRepo);
     }
 
     return dreeScan;
