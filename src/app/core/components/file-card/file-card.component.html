@@ -2,7 +2,9 @@
   <div
     *ngIf="dreeNode.type === 'file' && mode === 'allow-metadata'"
     class="ear"
-    [class.has-metadata]="dreeNode.metadata?.content"
+    [class.has-metadata]="
+      (fileSystemQuery.select() | async).existingFileHashes.has(dreeNode.hash)
+    "
     (click)="manageMetadata($event)"
   >
     <mat-icon aria-hidden="false" aria-label="star icon">star</mat-icon>
@@ -10,7 +12,12 @@
 
   <div class="name-and-icon">
     <span class="fiv-sqo file-icon {{ dreeNode | dreeToFileIcon }}"></span>
-    <h3 class="file-name" pTooltip="{{ dreeNode.name }}" tooltipPosition="bottom" showDelay="200">
+    <h3
+      class="file-name"
+      pTooltip="{{ dreeNode.name }}"
+      tooltipPosition="bottom"
+      showDelay="200"
+    >
       {{ dreeNode.name }}
     </h3>
   </div>

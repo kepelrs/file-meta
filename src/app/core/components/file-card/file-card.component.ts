@@ -5,6 +5,7 @@ import { ManageMetadataComponent } from '../manage-metadata/manage-metadata.comp
 import { shell } from 'electron';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { FileSystemQuery } from '../../state/file-system.query';
 
 @Component({
   selector: 'app-file-card',
@@ -19,7 +20,8 @@ export class FileCardComponent implements OnInit {
   constructor(
     private dialogService: DialogService,
     private router: Router,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
+    public fileSystemQuery: FileSystemQuery
   ) {}
 
   ngOnInit() {}

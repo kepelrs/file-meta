@@ -7,6 +7,8 @@ import { LAST_LOCATION_KEY } from '../constants';
 export interface FileSystemState {
   folderPath: string;
   dree: DreeWithMetadata;
+  /** hashes */
+  existingFileHashes: Set<string>;
 }
 
 export function createInitialState(): FileSystemState {
@@ -17,6 +19,7 @@ export function createInitialState(): FileSystemState {
   return {
     folderPath: currentFolderPath,
     dree: null,
+    existingFileHashes: new Set(),
   };
 }
 
