@@ -36,7 +36,7 @@ export class HashService {
 
     // if smaller than threshold, hash the entire file
     if (size < threshold) {
-      const fileHash = this.hashPortion(path);
+      const fileHash = await this.hashPortion(path);
       output.update(fileHash + String(size));
       return output.digest('hex');
     }

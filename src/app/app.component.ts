@@ -14,9 +14,9 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class AppComponent implements OnInit {
   languages: AppLanguage[] = ['en', 'pt'];
-  selectedLanguage: AppLanguage = window.localStorage.getItem(
+  selectedLanguage: AppLanguage = (window.localStorage.getItem(
     SELECTED_LANGUAGE
-  ) as AppLanguage;
+  ) || 'en') as AppLanguage;
 
   constructor(
     private router: Router,
