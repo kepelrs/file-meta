@@ -75,8 +75,9 @@ function createWindow() {
 }
 
 function reload() {
-  win.close();
+  const previousWin = win;
   createWindow();
+  previousWin.close();
 }
 
 try {
