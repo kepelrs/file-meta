@@ -67,10 +67,6 @@ function createWindow() {
     },
   ];
 
-  if (process.platform === 'darwin') {
-    menuTemplate.unshift({} as any);
-  }
-
   Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 
   // win.on('closed', () => {
