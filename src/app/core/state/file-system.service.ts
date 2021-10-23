@@ -148,21 +148,45 @@ export class FileSystemService {
     await this.scanFs(currentFolderPath);
   }
 
-  public async addMetadata(
+  /** Saves if not empty, deletes otherwise */
+  public async saveOrRemoveMetadata(
     node: DreeWithMetadata,
     metadataContent: string,
     plainText: string
   ) {
+    if (!node.hash) {
+      return;
+    }
+
     const metadataRepo = await this.metadataRepo;
-    await metadataRepo.save({
-      hash: node.hash,
-      content: metadataContent || '',
-      plainText,
-    });
+    const { existingFileHashes } = this.fileSystemStore.getValue();
+
+    /**
+     * Empty metadata notes:
+     * 1. In certain situations Quill leaves empty <p> tags.
+     * 2. Simply checking trimmed plainText is not enough, since it would fail on image based metadatas
+     *
+     * Current solution is to check empty plain text and no quoted properties
+     */
+    const metadataIsEmpty =
+      !(plainText || '').trim() && !(metadataContent || '').includes('"');
+    if (!metadataIsEmpty) {
+      await metadataRepo.save({
+        hash: node.hash,
+        content: metadataContent || '',
+        plainText,
+      });
+      existingFileHashes.add(node.hash);
+    } else {
+      const connection = await this.dbService.connection;
+      await connection.query(
+        `delete from file where metadataHash="${node.hash}"`
+      );
+      await connection.query(`delete from metadata where hash="${node.hash}"`);
+      existingFileHashes.delete(node.hash);
+    }
 
     this.fileSystemStore.update((state) => {
-      const hashes = state.existingFileHashes;
-      hashes.add(node.hash);
       return state;
     });
 

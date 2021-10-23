@@ -58,7 +58,7 @@ export class ManageMetadataComponent implements OnInit {
     const plainText = (editorBox && editorBox.innerText) || '';
     const normalizedWhiteSpace = plainText.replace(/\s\s+/g, ' ');
 
-    this.fileSystemService.addMetadata(
+    this.fileSystemService.saveOrRemoveMetadata(
       this.dreeNode,
       this.metadataContent,
       normalizedWhiteSpace
