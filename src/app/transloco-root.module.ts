@@ -16,11 +16,16 @@ import { environment } from '../environments/environment';
 export class TranslocoHttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) {}
   getTranslation(lang: string) {
-    const fileUrl = url.format({
-      pathname: path.join(__dirname, 'assets', 'i18n', `/${lang}.json`),
-      protocol: 'file:',
-      slashes: true,
-    });
+    let fileUrl: string;
+    if (environment.production) {
+      fileUrl = url.format({
+        pathname: path.join(__dirname, 'assets', 'i18n', `/${lang}.json`),
+        protocol: 'file:',
+        slashes: true,
+      });
+    } else {
+      fileUrl = `/assets/i18n/${lang}.json`;
+    }
     return this.http.get<Translation>(fileUrl);
   }
 }
