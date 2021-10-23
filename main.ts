@@ -22,7 +22,6 @@ function createWindow() {
   });
 
   win.maximize();
-  win.menuBarVisible = false;
   nativeTheme.themeSource = 'light';
 
   if (serve) {
@@ -30,10 +29,10 @@ function createWindow() {
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`),
     });
-    win.loadURL('http://localhost:4200');
 
     // The following is optional and will open the DevTools:
     win.webContents.openDevTools();
+    win.loadURL('http://localhost:4200');
   } else {
     // load the dist folder from Angular
     win.loadURL(
@@ -46,9 +45,42 @@ function createWindow() {
     );
   }
 
-  win.on('closed', () => {
-    win = null;
-  });
+  const menuTemplate = [
+    {
+      label: 'Options',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: process.platform === 'darwin' ? 'Command+R' : 'Ctrl+R',
+          click: function () {
+            reload();
+          },
+        },
+        {
+          label: 'Quit',
+          accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+          click: function () {
+            app.quit();
+          },
+        },
+      ],
+    },
+  ];
+
+  if (process.platform === 'darwin') {
+    menuTemplate.unshift({} as any);
+  }
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
+
+  // win.on('closed', () => {
+  //   win = null;
+  // });
+}
+
+function reload() {
+  win.close();
+  createWindow();
 }
 
 try {
