@@ -22,6 +22,7 @@ function createWindow() {
   });
 
   win.maximize();
+  win.menuBarVisible = false;
 
   if (serve) {
     // get dynamic version from localhost:4200
