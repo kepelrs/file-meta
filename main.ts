@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, Tray } from 'electron';
+import { app, BrowserWindow, Menu, Tray, nativeTheme } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -23,6 +23,7 @@ function createWindow() {
 
   win.maximize();
   win.menuBarVisible = false;
+  nativeTheme.themeSource = 'light';
 
   if (serve) {
     // get dynamic version from localhost:4200
