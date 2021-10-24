@@ -37,9 +37,9 @@ A simple cross platform file navigator that lets you add and search by arbitrary
 
 Binary builds for all supported platforms can be found in the [release](TODO:link).
 
-## Screenshots
+## Quick Demo
 
-TODO: add
+![demo-gif](./demo.gif)
 
 ## Build Commands
 
@@ -58,6 +58,7 @@ TODO: add
 - [ ] Caching & better performance on humongous flat folders
 - [ ] Allow annotation of folders
 - [ ] Appearance customization & user settings (eg. specify sampling size, quantity and hashing function)
+- [ ] Different navigation views (eg. list view)
 
 ## Thanks
 
