@@ -28,18 +28,19 @@ A simple cross platform file navigator that lets you add and search by arbitrary
 
 - Cross platform: macOS, Linux, Windows
 - Rich text metadata
-- Search
+- Search by metadata
 - Auto attach metadata to duplicate files
-- Safe - your files are never modified. All metadata is stored in a separate SQLite database.
+- No file modification
+  - _All metadata is stored in a standalone SQLite database._
 - i18n
-
-## Downloads
-
-Binary builds for all supported platforms can be found in the [release](TODO:link).
 
 ## Quick Demo
 
 ![demo-gif](./demo.gif)
+
+## Downloads
+
+Binary builds for all supported platforms can be found in the [release](https://github.com/kepelrs/file-meta/releases).
 
 ## Build Commands
 
@@ -59,6 +60,10 @@ Binary builds for all supported platforms can be found in the [release](TODO:lin
 - [ ] Allow annotation of folders
 - [ ] Appearance customization & user settings (eg. specify sampling size, quantity and hashing function)
 - [ ] Different navigation views (eg. list view)
+
+## Known issues
+
+- [ ] metadata gets disassociated when file changes.
 
 ## Thanks
 

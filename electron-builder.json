@@ -27,14 +27,22 @@
   },
   "mac": {
     "icon": "dist/assets/icons",
-    "target": [
-      "dmg"
-    ]
+    "target": {
+      "target": "dmg",
+      "arch": [
+        "x64",
+        "arm64"
+      ]
+    }
   },
   "linux": {
     "icon": "dist/assets/icons",
-    "target": [
-      "AppImage"
-    ]
+    "target": {
+      "target": "AppImage",
+      "arch": [
+        "x64",
+        "arm64"
+      ]
+    }
   }
 }
